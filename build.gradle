@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'de.lyriaserver.kartenspiele'
-version = '0.1'
+version = '1.0'
 
 repositories {
     mavenCentral()
@@ -15,10 +15,15 @@ repositories {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
+    maven {
+        name = 'codemc'
+        url 'https://repo.codemc.io/repository/maven-releases/'
+    }
 }
 
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT'
+    compileOnly 'xyz.janboerman:GuiLib-Plugin:1.11.9'
 }
 
 def targetJavaVersion = 17

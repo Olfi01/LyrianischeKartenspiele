@@ -5,3 +5,11 @@ api-version: 1.19
 depend: [ GuiLib ]
 authors: [ Olfi01 ]
 description: Fügt Kartenspiele in Minecraft hinzu
+permissions:
+  lyriakarten.game:
+    description: "Game management permissions"
+    default: op
+    children:
+      lyriakarten.game.cancel:
+        description: "Allows the player to cancel games"
+        default: op
