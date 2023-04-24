@@ -49,6 +49,16 @@ public abstract class Game<G extends Game<G>> {
     public abstract String[] getOpponentLore(Player player);
 
     /**
+     * Creates a new {@link Player} from the given {@link HumanEntity}. Can be overridden to provide a customized
+     * implementation.
+     * @param player The minecraft player to create a game player from
+     * @return The newly created game player
+     */
+    public Player createPlayer(HumanEntity player) {
+        return new Player(player);
+    }
+
+    /**
      * Lets a player join the game. This is called whenever a player clicks a deck that's already running a game.
      * If the player was previously part of the game, this method will open the GUI for them again.
      * If the player is new, but the game isn't in the lobby phase anymore, it will instead add them as a spectator
@@ -61,7 +71,7 @@ public abstract class Game<G extends Game<G>> {
             showScreenToPlayer(existing.get());
         }
         else if (status == Status.Lobby) {
-            Player newPlayer = new Player(player);
+            Player newPlayer = createPlayer(player);
             players.add(newPlayer);
             showScreenToPlayer(newPlayer);
         }
