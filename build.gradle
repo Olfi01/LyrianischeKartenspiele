@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'de.lyriaserver.kartenspiele'
+group = 'de.lyriaserver'
 version = '1.1'
 
 repositories {
@@ -23,6 +23,12 @@ repositories {
 }
 
 publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            artifactId = 'lyrianische-kartenspiele'
+        }
+    }
     repositories {
         maven {
             name = "GitHubPackages"
