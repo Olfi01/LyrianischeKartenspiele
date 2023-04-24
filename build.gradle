@@ -34,10 +34,11 @@ publishing {
             name = "GitHubPackages"
             url = "https://maven.pkg.github.com/Olfi01/LyrianischeKartenspiele"
             credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
             }
         }
+
     }
 }
 
@@ -72,14 +73,14 @@ processResources {
 }
 
 task cleanOldVersions(type: Delete) {
-    delete fileTree(local_plugin_path) {
+    delete fileTree(project.findProperty('local_plugin_path')) {
         include "${jar.archiveBaseName}*.jar"
     }
 }
 
 task deployForTest(type: Copy) {
     from jar.outputs
-    into local_plugin_path
+    into project.findProperty('local_plugin_path')
     dependsOn jar
     dependsOn cleanOldVersions
 }
