@@ -7,7 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import xyz.janboerman.guilib.api.ItemBuilder;
 
-public class MauMau extends TurnBasedGame<MauMau> implements StackGame {
+public class MauMau extends TurnBasedGame<MauMau> implements CardGame, StackGame {
     private static final String NAME = "Mau-Mau";
     public static final ItemStack ICON =
             new ItemBuilder(Material.PAPER)

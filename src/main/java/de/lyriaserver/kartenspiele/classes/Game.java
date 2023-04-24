@@ -120,15 +120,6 @@ public abstract class Game<G extends Game<G>> {
      */
     public abstract void startGame();
 
-    /**
-     * Called when a player clicks on a card. Should handle whatever action is associated with that
-     * (probably playing the card), if it's a valid action.
-     * @param player The player that clicked on a card
-     * @param card The card that the player clicked on
-     * @return true if the input was a valid action
-     */
-    public abstract boolean playerUseCard(Player player, Card card);
-
     public void finishGame() {
         status = Status.Ended;
         if (winner != null) broadcastMessage("%s hat gewonnen!", winner.getName());
