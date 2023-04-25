@@ -1,4 +1,4 @@
-package de.lyriaserver.kartenspiele.classes;
+package de.lyriaserver.kartenspiele.classes.cardgames;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
 import org.jetbrains.annotations.Unmodifiable;

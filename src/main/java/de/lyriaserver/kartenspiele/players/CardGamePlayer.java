@@ -1,24 +1,20 @@
-package de.lyriaserver.kartenspiele.classes;
+package de.lyriaserver.kartenspiele.players;
 
-import de.lyriaserver.kartenspiele.gui.buttons.LobbyPlayerButton;
+import de.lyriaserver.kartenspiele.classes.cardgames.Card;
+import de.lyriaserver.kartenspiele.classes.cardgames.Pile;
+import de.lyriaserver.kartenspiele.classes.cardgames.Stack;
 import org.bukkit.entity.HumanEntity;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
-public class Player extends Spectator {
-    private final List<Card> hand = new ArrayList<>();
-    private final String name;
-    private final LobbyPlayerButton lobbyButton;
-    private boolean ready;
-
-    public Player(HumanEntity player) {
+public class CardGamePlayer extends Player {
+    protected final List<Card> hand = new ArrayList<>();
+    public CardGamePlayer(HumanEntity player) {
         super(player);
-        name = player.getName();
-        lobbyButton = new LobbyPlayerButton(this);
     }
 
     /**
@@ -61,6 +57,22 @@ public class Player extends Spectator {
     }
 
     /**
+     * Discards all the cards from the player's hand without placing them on any pile.
+     */
+    public void discardCards() {
+        discardCards(null);
+    }
+
+    /**
+     * Discards all the cards from the player's hand onto the given pile
+     * @param pile The pile to place the cards on, or null to not place them anywhere
+     */
+    public void discardCards(@Nullable Pile pile) {
+        if (pile != null) pile.placeCards(hand);
+        hand.clear();
+    }
+
+    /**
      * Returns true if the player has no more cards in their hand
      * @return true if the player has no more cards in their hand
      */
@@ -79,26 +91,5 @@ public class Player extends Spectator {
      */
     public int getCardAmount() {
         return hand.size();
-    }
-
-    public UUID getUid() {
-        return minecraftPlayer.getUniqueId();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setReady(boolean ready) {
-        this.ready = ready;
-        this.lobbyButton.setReady(ready);
-    }
-
-    public boolean isReady() {
-        return ready;
-    }
-
-    public LobbyPlayerButton getLobbyButton() {
-        return lobbyButton;
     }
 }

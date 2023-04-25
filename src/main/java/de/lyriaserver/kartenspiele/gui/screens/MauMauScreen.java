@@ -1,21 +1,21 @@
-package de.lyriaserver.kartenspiele.gui;
+package de.lyriaserver.kartenspiele.gui.screens;
 
-import de.lyriaserver.kartenspiele.classes.Card;
-import de.lyriaserver.kartenspiele.classes.Player;
+import de.lyriaserver.kartenspiele.classes.cardgames.Card;
 import de.lyriaserver.kartenspiele.games.MauMau;
 import de.lyriaserver.kartenspiele.gui.buttons.*;
+import de.lyriaserver.kartenspiele.players.CardGamePlayer;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class MauMauScreen extends ScrollingScreen<MauMau> {
+public class MauMauScreen extends ScrollingScreen<MauMau, CardGamePlayer> {
     private static final int PAGE_SIZE = 24;
     private final TurnIndicator<MauMau> turnIndicator;
     private final PileView pileButton;
-    private final List<OpponentInfo<MauMauScreen>> opponents = new ArrayList<>();
-    public MauMauScreen(MauMau game, @Nullable Player player) {
+    private final List<OpponentInfo<MauMauScreen, CardGamePlayer>> opponents = new ArrayList<>();
+    public MauMauScreen(MauMau game, @Nullable CardGamePlayer player) {
         super(game, 54, player, 1, -1);
 
         turnIndicator = new TurnIndicator<>(game, player);
@@ -27,15 +27,15 @@ public class MauMauScreen extends ScrollingScreen<MauMau> {
         pileButton = new PileView(game.getPile());
         setButton(14, pileButton);
 
-        Iterator<Player> iterator = game.getPlayers().iterator();
+        Iterator<CardGamePlayer> iterator = game.getPlayers().iterator();
         for (int slot = 18; slot < 27; slot++) {
             if (!iterator.hasNext()) break;
-            Player opponent = iterator.next();
+            CardGamePlayer opponent = iterator.next();
             if (opponent == player) {
                 if (!iterator.hasNext()) break;
                 opponent = iterator.next();
             }
-            OpponentInfo<MauMauScreen> opponentInfo = new OpponentInfo<>(game, opponent);
+            OpponentInfo<MauMauScreen, CardGamePlayer> opponentInfo = new OpponentInfo<>(game, opponent);
             opponents.add(opponentInfo);
             setButton(slot, opponentInfo);
         }

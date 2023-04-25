@@ -1,11 +1,11 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
-import de.lyriaserver.kartenspiele.classes.Pile;
-import de.lyriaserver.kartenspiele.gui.GameScreen;
+import de.lyriaserver.kartenspiele.classes.cardgames.Pile;
+import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
 import de.lyriaserver.kartenspiele.util.IconHelper;
 import xyz.janboerman.guilib.api.menu.ItemButton;
 
-public class PileView extends ItemButton<GameScreen<?>> {
+public class PileView extends ItemButton<GameScreen<?, ?>> {
     private final Pile pile;
 
     public PileView(Pile pile) {

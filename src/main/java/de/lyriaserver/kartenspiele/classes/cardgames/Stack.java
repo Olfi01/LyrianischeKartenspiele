@@ -1,4 +1,4 @@
-package de.lyriaserver.kartenspiele.classes;
+package de.lyriaserver.kartenspiele.classes.cardgames;
 
 import java.util.List;
 

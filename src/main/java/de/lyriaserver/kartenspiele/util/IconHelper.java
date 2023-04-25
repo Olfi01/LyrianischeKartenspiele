@@ -1,6 +1,6 @@
 package de.lyriaserver.kartenspiele.util;
 
-import de.lyriaserver.kartenspiele.classes.Card;
+import de.lyriaserver.kartenspiele.classes.cardgames.Card;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;

@@ -14,7 +14,7 @@ import java.util.Random;
 public final class LyrianischeKartenspiele extends JavaPlugin {
     public static final Random RANDOM = new Random();
     public static LyrianischeKartenspiele INSTANCE = null;
-    private final Map<BlockPos, Game<?>> games = new HashMap<>();
+    private final Map<BlockPos, Game<?, ?>> games = new HashMap<>();
     private final GamesRegistry gamesRegistry;
 
     public LyrianischeKartenspiele(GamesRegistry gamesRegistry) {
@@ -34,7 +34,7 @@ public final class LyrianischeKartenspiele extends JavaPlugin {
         gamesRegistry.registerGame(this, new GamesRegistry.GameOption(MauMau::new, MauMau.ICON));
     }
 
-    public Map<BlockPos, Game<?>> getGames() {
+    public Map<BlockPos, Game<?, ?>> getGames() {
         return games;
     }
 

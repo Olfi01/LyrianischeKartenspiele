@@ -1,15 +1,15 @@
-package de.lyriaserver.kartenspiele.gui;
+package de.lyriaserver.kartenspiele.gui.screens;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
 import de.lyriaserver.kartenspiele.classes.Game;
-import de.lyriaserver.kartenspiele.classes.Player;
+import de.lyriaserver.kartenspiele.players.Player;
 import org.jetbrains.annotations.Nullable;
 import xyz.janboerman.guilib.api.menu.MenuHolder;
 
-public abstract class GameScreen<G extends Game<G>> extends MenuHolder<LyrianischeKartenspiele> {
+public abstract class GameScreen<G extends Game<G, P>, P extends Player> extends MenuHolder<LyrianischeKartenspiele> {
     protected final G game;
     @Nullable
-    protected final Player player;
+    protected final P player;
 
     /**
      * Creates a new game screen. Sets the basic values usable by the screen.
@@ -17,7 +17,7 @@ public abstract class GameScreen<G extends Game<G>> extends MenuHolder<Lyrianisc
      * @param size The size of the inventory in which the screen is displayed - max. 54
      * @param player The player to associate with this screen, or null if it is a spectator screen
      */
-    public GameScreen(G game, int size, @Nullable Player player) {
+    public GameScreen(G game, int size, @Nullable P player) {
         super(LyrianischeKartenspiele.INSTANCE, size, game.getName());
         this.game = game;
         this.player = player;

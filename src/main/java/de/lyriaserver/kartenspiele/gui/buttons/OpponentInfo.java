@@ -1,8 +1,8 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
 import de.lyriaserver.kartenspiele.classes.Game;
-import de.lyriaserver.kartenspiele.classes.Player;
-import de.lyriaserver.kartenspiele.gui.GameScreen;
+import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
+import de.lyriaserver.kartenspiele.players.Player;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -14,11 +14,11 @@ import xyz.janboerman.guilib.api.menu.ItemButton;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class OpponentInfo<S extends GameScreen<?>> extends ItemButton<S> {
+public class OpponentInfo<S extends GameScreen<?, ?>, P extends Player> extends ItemButton<S> {
     private final ItemStack icon;
-    private final Player player;
-    private final Game<?> game;
-    public OpponentInfo(Game<?> game, Player player) {
+    private final P player;
+    private final Game<?, P> game;
+    public OpponentInfo(Game<?, P> game, P player) {
         this.game = game;
         this.player = player;
         icon = new ItemBuilder(Material.PLAYER_HEAD)

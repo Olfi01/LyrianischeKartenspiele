@@ -1,7 +1,8 @@
 package de.lyriaserver.kartenspiele.classes;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
-import de.lyriaserver.kartenspiele.gui.LobbyScreen;
+import de.lyriaserver.kartenspiele.gui.screens.LobbyScreen;
+import de.lyriaserver.kartenspiele.players.Player;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.Unmodifiable;
@@ -11,13 +12,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class Game<G extends Game<G>> {
-    protected final List<Player> players = new ArrayList<>();
+public abstract class Game<G extends Game<G, P>, P extends Player> {
+    protected final List<P> players = new ArrayList<>();
     protected final List<Spectator> spectators = new ArrayList<>();
 
-    protected final LobbyScreen.StartGameButton<G> startGameButton;
+    protected final LobbyScreen.StartGameButton<G, P> startGameButton;
     protected Status status = Status.Lobby;
-    protected Player winner = null;
+    protected P winner = null;
 
     protected Game() {
         this.startGameButton = new LobbyScreen.StartGameButton<>(this);
@@ -46,7 +47,7 @@ public abstract class Game<G extends Game<G>> {
      * @param player the player whose stats should be displayed
      * @return an array of strings to use as item lore, each containing one line
      */
-    public abstract String[] getOpponentLore(Player player);
+    public abstract String[] getOpponentLore(P player);
 
     /**
      * Creates a new {@link Player} from the given {@link HumanEntity}. Can be overridden to provide a customized
@@ -54,9 +55,7 @@ public abstract class Game<G extends Game<G>> {
      * @param player The minecraft player to create a game player from
      * @return The newly created game player
      */
-    public Player createPlayer(HumanEntity player) {
-        return new Player(player);
-    }
+    public abstract P createPlayer(HumanEntity player);
 
     /**
      * Lets a player join the game. This is called whenever a player clicks a deck that's already running a game.
@@ -66,12 +65,12 @@ public abstract class Game<G extends Game<G>> {
      * @param player The player to join the game
      */
     public void playerJoin(HumanEntity player) {
-        Optional<Player> existing = players.stream().filter(existingPlayer -> existingPlayer.getUid().equals(player.getUniqueId())).findFirst();
+        Optional<P> existing = players.stream().filter(existingPlayer -> existingPlayer.getUid().equals(player.getUniqueId())).findFirst();
         if (existing.isPresent()) {
             showScreenToPlayer(existing.get());
         }
         else if (status == Status.Lobby) {
-            Player newPlayer = createPlayer(player);
+            P newPlayer = createPlayer(player);
             players.add(newPlayer);
             showScreenToPlayer(newPlayer);
         }
@@ -87,7 +86,7 @@ public abstract class Game<G extends Game<G>> {
      * {@link org.bukkit.entity.Player#openInventory(Inventory)} using some variation of {@link xyz.janboerman.guilib.api.menu.MenuHolder}
      * @param player The player to show the screen to
      */
-    public abstract void showScreenToPlayer(Player player);
+    public abstract void showScreenToPlayer(P player);
 
     public abstract void showScreenToSpectator(Spectator spectator);
 
@@ -145,11 +144,11 @@ public abstract class Game<G extends Game<G>> {
      * @return the list of players
      */
     @Unmodifiable
-    public List<Player> getPlayers() {
+    public List<P> getPlayers() {
         return Collections.unmodifiableList(players);
     }
 
-    public Player getWinner() {
+    public P getWinner() {
         return winner;
     }
 
@@ -157,7 +156,7 @@ public abstract class Game<G extends Game<G>> {
         return status;
     }
 
-    public LobbyScreen.StartGameButton<G> getStartGameButton() {
+    public LobbyScreen.StartGameButton<G, P> getStartGameButton() {
         return startGameButton;
     }
 

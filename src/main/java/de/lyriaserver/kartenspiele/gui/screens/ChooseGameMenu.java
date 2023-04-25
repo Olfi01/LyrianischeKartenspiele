@@ -1,4 +1,4 @@
-package de.lyriaserver.kartenspiele.gui;
+package de.lyriaserver.kartenspiele.gui.screens;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
 import de.lyriaserver.kartenspiele.classes.BlockPos;
@@ -81,7 +81,7 @@ public class ChooseGameMenu extends PageMenu<LyrianischeKartenspiele> {
     }
 
     public class ChooseGameButton extends ItemButton<MenuHolder<LyrianischeKartenspiele>> {
-        private final Supplier<Game<?>> gameSupplier;
+        private final Supplier<Game<?, ?>> gameSupplier;
         public ChooseGameButton(GamesRegistry.GameOption gameOption) {
             super(gameOption.icon());
             this.gameSupplier = gameOption.gameSupplier();
@@ -89,10 +89,10 @@ public class ChooseGameMenu extends PageMenu<LyrianischeKartenspiele> {
 
         @Override
         public void onClick(MenuHolder<LyrianischeKartenspiele> holder, InventoryClickEvent event) {
-            Map<BlockPos, Game<?>> games = LyrianischeKartenspiele.INSTANCE.getGames();
+            Map<BlockPos, Game<?, ?>> games = LyrianischeKartenspiele.INSTANCE.getGames();
             HumanEntity player = event.getWhoClicked();
             if (!games.containsKey(position)) {
-                Game<?> game = gameSupplier.get();
+                Game<?, ?> game = gameSupplier.get();
                 games.put(position, game);
                 game.playerJoin(player);
             }

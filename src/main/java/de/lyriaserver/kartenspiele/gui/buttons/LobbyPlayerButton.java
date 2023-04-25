@@ -1,7 +1,7 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
-import de.lyriaserver.kartenspiele.classes.Player;
-import de.lyriaserver.kartenspiele.gui.LobbyScreen;
+import de.lyriaserver.kartenspiele.gui.screens.LobbyScreen;
+import de.lyriaserver.kartenspiele.players.Player;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.enchantments.Enchantment;
@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import xyz.janboerman.guilib.api.ItemBuilder;
 import xyz.janboerman.guilib.api.menu.ItemButton;
 
-public class LobbyPlayerButton extends ItemButton<LobbyScreen<?>> {
+public class LobbyPlayerButton extends ItemButton<LobbyScreen<?, ?>> {
     private final ItemStack readyIcon;
     private final ItemStack notReadyIcon;
     public LobbyPlayerButton(Player player) {

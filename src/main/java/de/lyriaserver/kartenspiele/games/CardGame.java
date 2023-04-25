@@ -1,7 +1,7 @@
 package de.lyriaserver.kartenspiele.games;
 
-import de.lyriaserver.kartenspiele.classes.Card;
-import de.lyriaserver.kartenspiele.classes.Player;
+import de.lyriaserver.kartenspiele.classes.cardgames.Card;
+import de.lyriaserver.kartenspiele.players.CardGamePlayer;
 
 public interface CardGame {
     /**
@@ -11,5 +11,5 @@ public interface CardGame {
      * @param card The card that the player clicked on
      * @return true if the input was a valid action
      */
-    boolean playerUseCard(Player player, Card card);
+    boolean playerUseCard(CardGamePlayer player, Card card);
 }

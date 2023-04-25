@@ -1,16 +1,16 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
 import de.lyriaserver.kartenspiele.classes.Game;
-import de.lyriaserver.kartenspiele.classes.Player;
 import de.lyriaserver.kartenspiele.games.TurnBasedGame;
-import de.lyriaserver.kartenspiele.gui.MauMauScreen;
+import de.lyriaserver.kartenspiele.gui.screens.MauMauScreen;
+import de.lyriaserver.kartenspiele.players.Player;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import xyz.janboerman.guilib.api.ItemBuilder;
 import xyz.janboerman.guilib.api.menu.ItemButton;
 
-public class TurnIndicator<G extends TurnBasedGame<G>> extends ItemButton<MauMauScreen> {
+public class TurnIndicator<G extends TurnBasedGame<G, ? extends Player>> extends ItemButton<MauMauScreen> {
     private static final ItemStack yourTurn =
             new ItemBuilder(Material.GREEN_STAINED_GLASS_PANE)
                     .name("Du bist dran!")

@@ -1,21 +1,21 @@
 package de.lyriaserver.kartenspiele.classes;
 
-import de.lyriaserver.kartenspiele.gui.GameScreen;
+import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
 import org.bukkit.entity.HumanEntity;
 
 public class Spectator {
     protected final HumanEntity minecraftPlayer;
-    protected GameScreen<?> screen;
+    protected GameScreen<?, ?> screen;
 
     public Spectator(HumanEntity player) {
         this.minecraftPlayer = player;
     }
 
-    public GameScreen<?> getScreen() {
+    public GameScreen<?, ?> getScreen() {
         return screen;
     }
 
-    public void openScreen(GameScreen<?> screen) {
+    public void openScreen(GameScreen<?, ?> screen) {
         this.screen = screen;
         minecraftPlayer.openInventory(screen.getInventory());
     }

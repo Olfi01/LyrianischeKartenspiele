@@ -33,6 +33,6 @@ public class GamesRegistry {
         return games.values().stream().flatMap(List::stream).toList();
     }
 
-    public record GameOption(Supplier<Game<?>> gameSupplier, ItemStack icon) {
+    public record GameOption(Supplier<Game<?, ?>> gameSupplier, ItemStack icon) {
     }
 }

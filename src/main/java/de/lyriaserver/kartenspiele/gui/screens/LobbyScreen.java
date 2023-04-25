@@ -1,8 +1,8 @@
-package de.lyriaserver.kartenspiele.gui;
+package de.lyriaserver.kartenspiele.gui.screens;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
 import de.lyriaserver.kartenspiele.classes.Game;
-import de.lyriaserver.kartenspiele.classes.Player;
+import de.lyriaserver.kartenspiele.players.Player;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
@@ -16,10 +16,10 @@ import xyz.janboerman.guilib.api.menu.ItemButton;
 
 import java.util.Iterator;
 
-public class LobbyScreen<G extends Game<G>> extends GameScreen<G> {
+public class LobbyScreen<G extends Game<G, P>, P extends Player> extends GameScreen<G, P> {
     private final Player player;
-    private final StartGameButton<G> startGameButton;
-    public LobbyScreen(G game, Player player) {
+    private final StartGameButton<G, P> startGameButton;
+    public LobbyScreen(G game, P player) {
         super(game, 27, player);
         this.player = player;
         this.startGameButton = game.getStartGameButton();
@@ -27,7 +27,7 @@ public class LobbyScreen<G extends Game<G>> extends GameScreen<G> {
         setButton(0, new ReadyButton());
         setButton(8, new CloseButton<LyrianischeKartenspiele>());
 
-        Iterator<Player> iterator = game.getPlayers().iterator();
+        Iterator<P> iterator = game.getPlayers().iterator();
         for (int row = 1; row < 3; row++) {
             for (int col = 2; col < 7; col++) {
                 if (!iterator.hasNext()) break;
@@ -43,7 +43,7 @@ public class LobbyScreen<G extends Game<G>> extends GameScreen<G> {
         startGameButton.update();
     }
 
-    public class ReadyButton extends ItemButton<LobbyScreen<G>> {
+    public class ReadyButton extends ItemButton<LobbyScreen<G, P>> {
         private static final ItemStack readyIcon =
                 new ItemBuilder(Material.GREEN_WOOL)
                         .name("Bereit")
@@ -72,7 +72,7 @@ public class LobbyScreen<G extends Game<G>> extends GameScreen<G> {
         }
     }
 
-    public static class StartGameButton<G extends Game<G>> extends ItemButton<LobbyScreen<G>> {
+    public static class StartGameButton<G extends Game<G, P>, P extends Player> extends ItemButton<LobbyScreen<G, P>> {
         private static final ItemStack canStartIcon =
                 new ItemBuilder(Material.TIPPED_ARROW)
                         .name("Spiel starten")
@@ -85,9 +85,9 @@ public class LobbyScreen<G extends Game<G>> extends GameScreen<G> {
                         .changeMeta((PotionMeta meta) -> meta.setBasePotionData(new PotionData(PotionType.INSTANT_HEAL)))
                         .changeMeta(meta -> meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS))
                         .build();
-        private final Game<G> game;
+        private final Game<G, P> game;
 
-        public StartGameButton(Game<G> game) {
+        public StartGameButton(Game<G, P> game) {
             super(cantStartIcon);
             this.game = game;
             update();

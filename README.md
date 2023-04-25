@@ -54,6 +54,7 @@
         </servers>
     </settings>
     ```
+* TODO: Anleitung zum Anlegen eines neuen Games
 ### IDE Setup für lokales Testen
 * In beliebigem Directory Paper-Server 1.19.2 aufsetzen
 * In `gradle.properties` im Root-Verzeichnis folgende Zeile ändern: `local_plugin_path=HIER_SERVER_PFAD_EINFÜGEN\\plugins`

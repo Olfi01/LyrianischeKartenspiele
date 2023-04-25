@@ -1,13 +1,19 @@
 package de.lyriaserver.kartenspiele.games;
 
-import de.lyriaserver.kartenspiele.classes.*;
-import de.lyriaserver.kartenspiele.gui.LobbyScreen;
-import de.lyriaserver.kartenspiele.gui.MauMauScreen;
+import de.lyriaserver.kartenspiele.classes.Spectator;
+import de.lyriaserver.kartenspiele.classes.cardgames.Card;
+import de.lyriaserver.kartenspiele.classes.cardgames.Decks;
+import de.lyriaserver.kartenspiele.classes.cardgames.Pile;
+import de.lyriaserver.kartenspiele.classes.cardgames.Stack;
+import de.lyriaserver.kartenspiele.gui.screens.LobbyScreen;
+import de.lyriaserver.kartenspiele.gui.screens.MauMauScreen;
+import de.lyriaserver.kartenspiele.players.CardGamePlayer;
 import org.bukkit.Material;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.ItemStack;
 import xyz.janboerman.guilib.api.ItemBuilder;
 
-public class MauMau extends TurnBasedGame<MauMau> implements CardGame, StackGame {
+public final class MauMau extends TurnBasedGame<MauMau, CardGamePlayer> implements CardGame, StackGame {
     private static final String NAME = "Mau-Mau";
     public static final ItemStack ICON =
             new ItemBuilder(Material.PAPER)
@@ -39,14 +45,19 @@ public class MauMau extends TurnBasedGame<MauMau> implements CardGame, StackGame
     }
 
     @Override
-    public String[] getOpponentLore(Player player) {
+    public String[] getOpponentLore(CardGamePlayer player) {
         return new String[] {
                 String.format("%d Karten", player.getCardAmount())
         };
     }
 
     @Override
-    public void showScreenToPlayer(Player player) {
+    public CardGamePlayer createPlayer(HumanEntity player) {
+        return new CardGamePlayer(player);
+    }
+
+    @Override
+    public void showScreenToPlayer(CardGamePlayer player) {
         if (status == Status.Lobby) {
             player.openScreen(new LobbyScreen<>(this, player));
         }
@@ -61,19 +72,18 @@ public class MauMau extends TurnBasedGame<MauMau> implements CardGame, StackGame
     }
 
     @Override
-    public void startGame() {
-        super.startGame();
+    public void runGame() {
         status = Status.Started;
         stack.shuffle();
         pile.placeCard(stack.draw());
-        for (Player player : players) {
+        for (CardGamePlayer player : players) {
             player.drawCards(stack, STARTING_HAND_CARDS);
             showScreenToPlayer(player);
         }
     }
 
     @Override
-    public boolean playerUseCard(Player player, Card card) {
+    public boolean playerUseCard(CardGamePlayer player, Card card) {
         if (status != Status.Started) return false;
         if (currentTurnPlayer != player) return false;
         if (!cardCanBePlayed(card)) return false;

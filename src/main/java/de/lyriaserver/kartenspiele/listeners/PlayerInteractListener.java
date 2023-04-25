@@ -3,7 +3,7 @@ package de.lyriaserver.kartenspiele.listeners;
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
 import de.lyriaserver.kartenspiele.classes.BlockPos;
 import de.lyriaserver.kartenspiele.classes.Game;
-import de.lyriaserver.kartenspiele.gui.ChooseGameMenu;
+import de.lyriaserver.kartenspiele.gui.screens.ChooseGameMenu;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -22,7 +22,7 @@ public class PlayerInteractListener implements Listener {
         if (block.getType() != Material.PINK_CARPET) return;
         Player player = event.getPlayer();
         BlockPos position = new BlockPos(block);
-        Map<BlockPos, Game<?>> games = LyrianischeKartenspiele.INSTANCE.getGames();
+        Map<BlockPos, Game<?, ?>> games = LyrianischeKartenspiele.INSTANCE.getGames();
         if (games.containsKey(position)) {
             games.get(position).playerJoin(player);
         }

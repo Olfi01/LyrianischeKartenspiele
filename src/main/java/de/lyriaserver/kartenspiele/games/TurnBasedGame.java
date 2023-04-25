@@ -2,16 +2,23 @@ package de.lyriaserver.kartenspiele.games;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
 import de.lyriaserver.kartenspiele.classes.Game;
-import de.lyriaserver.kartenspiele.classes.Player;
+import de.lyriaserver.kartenspiele.players.Player;
 
-public abstract class TurnBasedGame<G extends TurnBasedGame<G>> extends Game<G> {
-    protected Player currentTurnPlayer = null;
+public abstract class TurnBasedGame<G extends TurnBasedGame<G, P>, P extends Player> extends Game<G, P> {
+    protected P currentTurnPlayer = null;
     protected boolean reverseDirection = false;
 
     @Override
     public void startGame() {
         currentTurnPlayer = players.get(LyrianischeKartenspiele.RANDOM.nextInt(players.size()));
+        runGame();
     }
+
+    /**
+     * Used in place of {@link Game#startGame()} but functions the same. Will be called after
+     * {@link TurnBasedGame#currentTurnPlayer} is set to a random player.
+     */
+    public abstract void runGame();
 
     public void nextTurn() {
         int index = players.indexOf(currentTurnPlayer);

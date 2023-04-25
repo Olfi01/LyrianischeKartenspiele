@@ -1,4 +1,4 @@
-package de.lyriaserver.kartenspiele.classes;
+package de.lyriaserver.kartenspiele.classes.cardgames;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,5 +38,13 @@ public class Pile extends CardStack {
         cards.clear();
         cards.add(top);
         return result;
+    }
+
+    /**
+     * Places the specified cards on top of the pile in the specified order.
+     * @param cards The cards to place on the pile
+     */
+    public void placeCards(List<Card> cards) {
+        this.cards.addAll(0, cards);
     }
 }

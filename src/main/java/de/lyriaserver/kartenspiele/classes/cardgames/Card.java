@@ -1,4 +1,4 @@
-package de.lyriaserver.kartenspiele.classes;
+package de.lyriaserver.kartenspiele.classes.cardgames;
 
 public record Card(Color color, Value value) {
     public String getItemLore() {
