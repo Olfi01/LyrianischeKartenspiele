@@ -98,7 +98,7 @@ public class ChooseGameMenu extends PageMenu<LyrianischeKartenspiele> {
             }
             else {
                 player.closeInventory();
-                player.sendMessage("Hier existiert bereits ein Spiel!");
+                player.sendMessage("Hier läuft bereits ein Spiel!");
             }
         }
     }
