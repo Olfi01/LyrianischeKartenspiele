@@ -2,7 +2,7 @@ package de.lyriaserver.kartenspiele.classes.cardgames;
 
 public record Card(Color color, Value value) {
     public String getItemLore() {
-        return String.format("Gegenstand: Karte %s %s", color.getName(), value.getName());
+        return String.format("§0Gegenstand: Karte %s %s", color.getName(), value.getName());
     }
 
     public String getName() {
