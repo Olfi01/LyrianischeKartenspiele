@@ -1,7 +1,7 @@
 package de.lyriaserver.kartenspiele;
 
 import de.lyriaserver.kartenspiele.classes.BlockPos;
-import de.lyriaserver.kartenspiele.classes.Game;
+import de.lyriaserver.kartenspiele.games.Game;
 import de.lyriaserver.kartenspiele.games.GamesRegistry;
 import de.lyriaserver.kartenspiele.games.MauMau;
 import de.lyriaserver.kartenspiele.listeners.PlayerInteractListener;
@@ -15,11 +15,7 @@ public final class LyrianischeKartenspiele extends JavaPlugin {
     public static final Random RANDOM = new Random();
     public static LyrianischeKartenspiele INSTANCE = null;
     private final Map<BlockPos, Game<?, ?>> games = new HashMap<>();
-    private final GamesRegistry gamesRegistry;
-
-    public LyrianischeKartenspiele(GamesRegistry gamesRegistry) {
-        this.gamesRegistry = gamesRegistry;
-    }
+    private final GamesRegistry gamesRegistry = new GamesRegistry();
 
     @Override
     public void onEnable() {
