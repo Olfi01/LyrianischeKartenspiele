@@ -18,7 +18,7 @@ public final class MauMau extends TurnBasedGame<MauMau, CardGamePlayer> implemen
     public static final ItemStack ICON =
             new ItemBuilder(Material.PAPER)
             .name(NAME)
-            .addLore("Gegenstand: Verdeckte Karte")
+            .addLore("§0Gegenstand: Verdeckte Karte")
                     .build();
     private static final int STARTING_HAND_CARDS = 6;
     private final Stack stack;
