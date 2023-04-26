@@ -13,3 +13,5 @@ permissions:
       lyriakarten.game.cancel:
         description: "Allows the player to cancel games"
         default: op
+softdepend:
+  - Vault
