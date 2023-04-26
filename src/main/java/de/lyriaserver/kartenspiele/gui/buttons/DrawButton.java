@@ -1,6 +1,6 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
-import de.lyriaserver.kartenspiele.classes.Game;
+import de.lyriaserver.kartenspiele.games.Game;
 import de.lyriaserver.kartenspiele.games.StackGame;
 import de.lyriaserver.kartenspiele.games.TurnBasedGame;
 import de.lyriaserver.kartenspiele.gui.screens.GameScreen;

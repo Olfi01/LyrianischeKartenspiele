@@ -1,7 +1,7 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
-import de.lyriaserver.kartenspiele.classes.Game;
 import de.lyriaserver.kartenspiele.constants.Permissions;
+import de.lyriaserver.kartenspiele.games.Game;
 import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;

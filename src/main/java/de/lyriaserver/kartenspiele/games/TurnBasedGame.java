@@ -1,7 +1,6 @@
 package de.lyriaserver.kartenspiele.games;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
-import de.lyriaserver.kartenspiele.classes.Game;
 import de.lyriaserver.kartenspiele.players.Player;
 
 public abstract class TurnBasedGame<G extends TurnBasedGame<G, P>, P extends Player> extends Game<G, P> {

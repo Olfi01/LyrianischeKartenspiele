@@ -1,7 +1,7 @@
 package de.lyriaserver.kartenspiele.gui.screens;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
-import de.lyriaserver.kartenspiele.classes.Game;
+import de.lyriaserver.kartenspiele.games.Game;
 import de.lyriaserver.kartenspiele.players.Player;
 import org.jetbrains.annotations.Nullable;
 import xyz.janboerman.guilib.api.menu.MenuHolder;

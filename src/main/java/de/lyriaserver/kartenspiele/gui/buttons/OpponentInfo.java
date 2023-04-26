@@ -1,6 +1,6 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
-import de.lyriaserver.kartenspiele.classes.Game;
+import de.lyriaserver.kartenspiele.games.Game;
 import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
 import de.lyriaserver.kartenspiele.players.Player;
 import net.kyori.adventure.text.Component;

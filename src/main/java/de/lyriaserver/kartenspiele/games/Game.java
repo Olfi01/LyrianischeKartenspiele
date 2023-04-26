@@ -1,6 +1,7 @@
-package de.lyriaserver.kartenspiele.classes;
+package de.lyriaserver.kartenspiele.games;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
+import de.lyriaserver.kartenspiele.classes.Spectator;
 import de.lyriaserver.kartenspiele.gui.screens.LobbyScreen;
 import de.lyriaserver.kartenspiele.players.Player;
 import org.bukkit.entity.HumanEntity;

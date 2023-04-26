@@ -2,7 +2,7 @@ package de.lyriaserver.kartenspiele.gui.screens;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
 import de.lyriaserver.kartenspiele.classes.BlockPos;
-import de.lyriaserver.kartenspiele.classes.Game;
+import de.lyriaserver.kartenspiele.games.Game;
 import de.lyriaserver.kartenspiele.games.GamesRegistry;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
