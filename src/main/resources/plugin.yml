@@ -13,5 +13,9 @@ permissions:
       lyriakarten.game.cancel:
         description: "Allows the player to cancel games"
         default: op
+        children:
+          lyriakarten.game.cancel.lobby:
+            description: "Allows the player to cancel games that are still in lobby phase"
+            default: true
 softdepend:
   - Vault

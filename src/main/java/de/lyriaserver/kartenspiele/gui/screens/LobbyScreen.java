@@ -2,6 +2,7 @@ package de.lyriaserver.kartenspiele.gui.screens;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
 import de.lyriaserver.kartenspiele.games.Game;
+import de.lyriaserver.kartenspiele.gui.buttons.CancelGameButton;
 import de.lyriaserver.kartenspiele.players.Player;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -35,6 +36,7 @@ public class LobbyScreen<G extends Game<G, P>, P extends Player> extends GameScr
             }
         }
 
+        setButton(18, new CancelGameButton(game));
         setButton(26, startGameButton);
     }
 
