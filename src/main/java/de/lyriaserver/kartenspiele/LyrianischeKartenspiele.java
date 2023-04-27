@@ -4,6 +4,7 @@ import de.lyriaserver.kartenspiele.classes.BlockPos;
 import de.lyriaserver.kartenspiele.games.GamesRegistry;
 import de.lyriaserver.kartenspiele.games.IGame;
 import de.lyriaserver.kartenspiele.games.MauMau;
+import de.lyriaserver.kartenspiele.games.Poker;
 import de.lyriaserver.kartenspiele.listeners.PlayerInteractListener;
 import de.lyriaserver.kartenspiele.util.EconomyHelper;
 import net.milkbowl.vault.economy.Economy;
@@ -36,6 +37,9 @@ public final class LyrianischeKartenspiele extends JavaPlugin {
 
     private void registerGames() {
         gamesRegistry.registerGame(this, new GamesRegistry.GameOption(MauMau::new, MauMau.ICON));
+        gamesRegistry.registerGame(this, new GamesRegistry.GameOption(() -> new Poker(500), Poker.ICON_500));
+        gamesRegistry.registerGame(this, new GamesRegistry.GameOption(() -> new Poker(1000), Poker.ICON_1000));
+        gamesRegistry.registerGame(this, new GamesRegistry.GameOption(() -> new Poker(2000), Poker.ICON_2000));
     }
 
     private void setupEconomy() {
