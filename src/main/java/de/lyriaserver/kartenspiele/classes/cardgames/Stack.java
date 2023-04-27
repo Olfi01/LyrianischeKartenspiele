@@ -32,8 +32,13 @@ public class Stack extends CardStack {
      * Takes all cards from the specified pile except for the topmost one and shuffles them into the deck
      * @param pile The pile to take the cards from
      */
-    public void refillFromPileAndShuffle(Pile pile) {
-        cards.addAll(pile.takeAllCardsExceptTop());
+    public void refillFromPileAndShuffle(Pile pile, boolean leaveOneCard) {
+        if (leaveOneCard) cards.addAll(pile.takeAllCardsExceptTop());
+        else cards.addAll(pile.takeAllCards());
         this.shuffle();
+    }
+
+    public boolean isEmpty() {
+        return cards.isEmpty();
     }
 }

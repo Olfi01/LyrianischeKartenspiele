@@ -47,4 +47,10 @@ public class Pile extends CardStack {
     public void placeCards(List<Card> cards) {
         this.cards.addAll(0, cards);
     }
+
+    public List<Card> takeAllCards() {
+        List<Card> result = List.copyOf(cards);
+        cards.clear();
+        return result;
+    }
 }

@@ -1,9 +1,12 @@
 package de.lyriaserver.kartenspiele.classes;
 
 import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
+import de.lyriaserver.kartenspiele.players.Player;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import org.bukkit.entity.HumanEntity;
+
+import java.util.UUID;
 
 public class Spectator {
     protected final HumanEntity minecraftPlayer;
@@ -49,5 +52,20 @@ public class Spectator {
      */
     public HumanEntity getMcPlayer() {
         return minecraftPlayer;
+    }
+
+    public UUID getUid() {
+        return minecraftPlayer.getUniqueId();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Player player)) return false;
+        return this.getUid().equals(player.getUid());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getUid().hashCode();
     }
 }

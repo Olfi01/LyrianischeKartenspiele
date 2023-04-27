@@ -23,7 +23,7 @@ public class MauMauScreen extends ScrollingScreen<MauMau, CardGamePlayer> {
             setButton(slot, turnIndicator);
         }
 
-        setButton(12, new DrawCardButton(game, player));
+        setButton(12, new DrawCardButton(game, player, true));
         pileButton = new PileView(game.getPile());
         setButton(14, pileButton);
 

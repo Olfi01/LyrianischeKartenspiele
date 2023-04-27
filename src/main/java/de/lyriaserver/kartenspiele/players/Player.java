@@ -4,8 +4,6 @@ import de.lyriaserver.kartenspiele.classes.Spectator;
 import de.lyriaserver.kartenspiele.gui.buttons.LobbyPlayerButton;
 import org.bukkit.entity.HumanEntity;
 
-import java.util.UUID;
-
 public class Player extends Spectator {
     private final String name;
     private final LobbyPlayerButton lobbyButton;
@@ -15,10 +13,6 @@ public class Player extends Spectator {
         super(player);
         name = player.getName();
         lobbyButton = new LobbyPlayerButton(this);
-    }
-
-    public UUID getUid() {
-        return minecraftPlayer.getUniqueId();
     }
 
     public String getName() {
@@ -36,16 +30,5 @@ public class Player extends Spectator {
 
     public LobbyPlayerButton getLobbyButton() {
         return lobbyButton;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Player player)) return false;
-        return this.getUid().equals(player.getUid());
-    }
-
-    @Override
-    public int hashCode() {
-        return this.getUid().hashCode();
     }
 }

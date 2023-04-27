@@ -21,12 +21,14 @@ import java.util.Iterator;
 public class LobbyScreen<G extends IGame<G, P>, P extends Player> extends GameScreen<G, P> {
     private final Player player;
     private final StartGameButton<G, P> startGameButton;
+    private final ReadyButton readyButton;
     public LobbyScreen(G game, P player) {
         super(game, 27, player);
         this.player = player;
         this.startGameButton = game.getStartGameButton();
+        this.readyButton = new ReadyButton();
 
-        setButton(0, new ReadyButton());
+        setButton(0, readyButton);
         setButton(8, new CloseButton<LyrianischeKartenspiele>());
 
         Iterator<P> iterator = game.getPlayers().iterator();
@@ -43,6 +45,14 @@ public class LobbyScreen<G extends IGame<G, P>, P extends Player> extends GameSc
 
     @Override
     public void update() {
+        Iterator<P> iterator = game.getPlayers().iterator();
+        for (int row = 1; row < 3; row++) {
+            for (int col = 2; col < 7; col++) {
+                if (!iterator.hasNext()) unsetButton(row * 9 + col);
+                setButton(row * 9 + col, iterator.next().getLobbyButton());
+            }
+        }
+        readyButton.update();
         startGameButton.update();
     }
 
@@ -64,14 +74,18 @@ public class LobbyScreen<G extends IGame<G, P>, P extends Player> extends GameSc
         @Override
         public void onClick(LobbyScreen holder, InventoryClickEvent event) {
             ready = !ready;
-            if (ready) setIcon(readyIcon);
-            else setIcon(notReadyIcon);
             player.setReady(ready);
             startGameButton.update();
+            this.update();
         }
 
         public boolean isReady() {
             return ready;
+        }
+
+        public void update() {
+            if (ready) setIcon(readyIcon);
+            else setIcon(notReadyIcon);
         }
     }
 

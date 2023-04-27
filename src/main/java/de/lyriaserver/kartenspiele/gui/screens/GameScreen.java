@@ -3,6 +3,7 @@ package de.lyriaserver.kartenspiele.gui.screens;
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
 import de.lyriaserver.kartenspiele.games.IGame;
 import de.lyriaserver.kartenspiele.players.Player;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.jetbrains.annotations.Nullable;
 import xyz.janboerman.guilib.api.menu.MenuHolder;
 
@@ -27,4 +28,9 @@ public abstract class GameScreen<G extends IGame<G, P>, P extends Player> extend
      * This method updates the screen, adding, removing or modifying buttons as necessary to reflect the updated state.
      */
     public abstract void update();
+
+    @Override
+    public void onClose(InventoryCloseEvent event) {
+        game.playerLeftScreen(player);
+    }
 }

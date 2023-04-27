@@ -9,14 +9,11 @@ import net.kyori.adventure.sound.Sound;
 import org.bukkit.entity.HumanEntity;
 import org.jetbrains.annotations.Unmodifiable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public abstract class Game<G extends Game<G, P>, P extends Player> implements IGame<G, P> {
     protected final List<P> players = new ArrayList<>();
-    protected final List<Spectator> spectators = new ArrayList<>();
+    protected final Set<Spectator> spectators = new HashSet<>();
 
     protected final LobbyScreen.StartGameButton<G, P> startGameButton;
     protected GameStatus status = GameStatus.Lobby;
@@ -50,6 +47,7 @@ public abstract class Game<G extends Game<G, P>, P extends Player> implements IG
             P newPlayer = createPlayer(player);
             players.add(newPlayer);
             showScreenToPlayer(newPlayer);
+            updatePlayerScreens();
         }
         else {
             Spectator newSpectator = new Spectator(player);
@@ -121,6 +119,16 @@ public abstract class Game<G extends Game<G, P>, P extends Player> implements IG
     }
 
     @Override
+    public void playerLeftScreen(P player) {
+        spectators.remove(player);
+    }
+
+    @Override
+    public void setAllPlayersUnready() {
+        players.forEach(player -> player.setReady(false));
+    }
+
+    @Override
     @Unmodifiable
     public List<P> getPlayers() {
         return Collections.unmodifiableList(players);
@@ -143,8 +151,8 @@ public abstract class Game<G extends Game<G, P>, P extends Player> implements IG
 
     @Override
     @Unmodifiable
-    public List<Spectator> getSpectators() {
-        return Collections.unmodifiableList(spectators);
+    public Set<Spectator> getSpectators() {
+        return Collections.unmodifiableSet(spectators);
     }
 
 }

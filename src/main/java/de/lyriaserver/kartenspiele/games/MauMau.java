@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import xyz.janboerman.guilib.api.ItemBuilder;
 
 public final class MauMau extends TurnBasedGame<MauMau, CardGamePlayer>
-        implements CardGame<MauMau, CardGamePlayer>, StackGame<MauMau, CardGamePlayer> {
+        implements CardGame<MauMau, CardGamePlayer>, StackPileGame<MauMau, CardGamePlayer> {
     private static final String NAME = "Mau-Mau";
     public static final ItemStack ICON =
             new ItemBuilder(Material.PAPER)
@@ -121,8 +121,14 @@ public final class MauMau extends TurnBasedGame<MauMau, CardGamePlayer>
         return card.color() == topCard.color() || card.value() == topCard.value();
     }
 
+    @Override
     public Pile getPile() {
         return pile;
+    }
+
+    @Override
+    public boolean canPlayerDraw(CardGamePlayer player) {
+        return currentTurnPlayer == player;
     }
 
     @Override

@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public interface IGame<G extends IGame<G, P>, P extends Player> {
     /**
@@ -117,9 +118,20 @@ public interface IGame<G extends IGame<G, P>, P extends Player> {
      */
     LobbyScreen.StartGameButton<G, P> getStartGameButton();
     /**
-     * Returns a read-only view of the list of spectators, using {@link Collections#unmodifiableList(List)}
-     * @return the list of spectators
+     * Returns a read-only view of the set of spectators, using {@link Collections#unmodifiableSet(Set)}
+     * @return the set of spectators
      */
     @Unmodifiable
-    List<Spectator> getSpectators();
+    Set<Spectator> getSpectators();
+
+    /**
+     * Called when a player closes a screen
+     * @param player The player that closed the screen
+     */
+    void playerLeftScreen(P player);
+
+    /**
+     * Sets all players in the lobby to unready. Should be called if game options are changed.
+     */
+    void setAllPlayersUnready();
 }

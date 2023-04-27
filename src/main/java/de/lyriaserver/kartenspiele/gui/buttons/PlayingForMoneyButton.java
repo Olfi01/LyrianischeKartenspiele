@@ -30,6 +30,7 @@ public class PlayingForMoneyButton<MH extends MenuHolder<?>> extends ItemButton<
             return;
         }
         game.setPlayingForMoney(!game.isPlayingForMoney());
+        game.setAllPlayersUnready();
         update();
     }
 
