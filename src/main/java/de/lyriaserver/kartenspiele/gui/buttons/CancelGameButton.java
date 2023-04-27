@@ -1,6 +1,7 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
 import de.lyriaserver.kartenspiele.constants.Permissions;
+import de.lyriaserver.kartenspiele.constants.Sounds;
 import de.lyriaserver.kartenspiele.games.GameStatus;
 import de.lyriaserver.kartenspiele.games.IGame;
 import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
@@ -30,6 +31,9 @@ public class CancelGameButton extends ItemButton<GameScreen<?, ?>> {
             game.getPlayers().forEach(player -> player.getMcPlayer().closeInventory());
             game.getSpectators().forEach(spectator -> spectator.getMcPlayer().closeInventory());
             game.finishGame();
+        }
+        else {
+            event.getWhoClicked().playSound(Sounds.GENERIC_ERROR);
         }
     }
 

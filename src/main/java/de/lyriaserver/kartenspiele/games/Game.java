@@ -96,6 +96,7 @@ public abstract class Game<G extends Game<G, P>, P extends Player> implements IG
             players.forEach(player -> player.playSound(Sounds.GAME_DRAW));
         }
         LyrianischeKartenspiele.INSTANCE.getGames().values().removeAll(Collections.singleton(this));
+        updatePlayerScreens();
     }
 
     @Override
@@ -120,7 +121,13 @@ public abstract class Game<G extends Game<G, P>, P extends Player> implements IG
 
     @Override
     public void playerLeftScreen(P player) {
+        if (status == GameStatus.Lobby) players.remove(player);
         spectators.remove(player);
+    }
+
+    @Override
+    public void playerLeftScreen(UUID uniqueId) {
+        spectators.removeIf(spectator -> spectator.getUid().equals(uniqueId));
     }
 
     @Override

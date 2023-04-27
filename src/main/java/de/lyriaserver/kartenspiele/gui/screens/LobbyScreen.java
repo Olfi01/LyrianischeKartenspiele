@@ -127,6 +127,9 @@ public class LobbyScreen<G extends IGame<G, P>, P extends Player> extends GameSc
                 game.broadcastSound(Sounds.GAME_STARTING);
                 game.startGame();
             }
+            else {
+                event.getWhoClicked().playSound(Sounds.GENERIC_ERROR);
+            }
         }
     }
 }

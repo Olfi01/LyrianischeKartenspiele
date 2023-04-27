@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Unmodifiable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public interface IGame<G extends IGame<G, P>, P extends Player> {
     /**
@@ -131,7 +132,14 @@ public interface IGame<G extends IGame<G, P>, P extends Player> {
     void playerLeftScreen(P player);
 
     /**
+     * Called when a player closes a screen, but a reference to the player object doesn't exist, like for spectators
+     * @param uniqueId the unique id of the player who closed the screen
+     */
+    void playerLeftScreen(UUID uniqueId);
+
+    /**
      * Sets all players in the lobby to unready. Should be called if game options are changed.
      */
     void setAllPlayersUnready();
+
 }

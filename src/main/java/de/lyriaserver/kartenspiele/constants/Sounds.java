@@ -6,7 +6,7 @@ import org.intellij.lang.annotations.Subst;
 
 public class Sounds {
     public static final Sound CARD_PLAYED = sound("item.book.page_turn", 1.3f);
-    public static final Sound CARD_CANT_BE_PLAYED = sound("ui.loom.select_pattern");
+    public static final Sound GENERIC_ERROR = sound("block.note_block.basedrum", 0.6f);
     public static final Sound CARD_DRAW = sound("ui.loom.take_result");
     public static final Sound GAME_STARTING = sound("entity.experience_orb.pickup");
     public static final Sound GAME_WON = sound("entity.player.levelup");

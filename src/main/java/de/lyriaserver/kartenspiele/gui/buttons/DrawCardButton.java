@@ -18,7 +18,7 @@ public class DrawCardButton extends ItemButton<GameScreen<?, ?>> {
     private static final ItemStack icon =
             new ItemBuilder(Material.PAPER)
                     .name("Karte ziehen")
-                    .addLore("Gegenstand: Verdeckte Karte")
+                    .addLore("§0Gegenstand: Verdeckte Karte")
                     .build();
     private final StackPileGame<?, ?> game;
     private final CardGamePlayer player;
@@ -33,9 +33,16 @@ public class DrawCardButton extends ItemButton<GameScreen<?, ?>> {
 
     @Override
     public void onClick(GameScreen<?, ?> holder, InventoryClickEvent event) {
-        if (player == null || game.getStatus() != GameStatus.Started || !game.canPlayerDraw(player)) return;
+        if (player == null || game.getStatus() != GameStatus.Started || !game.canPlayerDraw(player)) {
+            event.getWhoClicked().playSound(Sounds.GENERIC_ERROR);
+            return;
+        }
         Stack stack = game.getStack();
         if (stack.isEmpty()) stack.refillFromPileAndShuffle(game.getPile(), leaveOneCardOnRefill);
+        if (stack.isEmpty()) {
+            game.broadcastMessage("Der Stapel ist leer! Das Spiel ist zuende!");
+            game.finishGame();
+        }
         player.drawCard(stack);
         game.broadcastSound(Sounds.CARD_DRAW);
         game.broadcastMessage("%s zieht eine Karte.", player.getName());

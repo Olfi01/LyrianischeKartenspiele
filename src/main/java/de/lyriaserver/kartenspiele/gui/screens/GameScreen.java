@@ -31,6 +31,7 @@ public abstract class GameScreen<G extends IGame<G, P>, P extends Player> extend
 
     @Override
     public void onClose(InventoryCloseEvent event) {
-        game.playerLeftScreen(player);
+        if (player != null) game.playerLeftScreen(player);
+        else game.playerLeftScreen(event.getPlayer().getUniqueId());
     }
 }
