@@ -1,6 +1,8 @@
 package de.lyriaserver.kartenspiele.classes;
 
 import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.sound.Sound;
 import org.bukkit.entity.HumanEntity;
 
 public class Spectator {
@@ -15,6 +17,10 @@ public class Spectator {
         return screen;
     }
 
+    /**
+     * Opens the given game screen for this player, saving a reference to return in {@link Spectator#getScreen()}.
+     * @param screen The screen to open
+     */
     public void openScreen(GameScreen<?, ?> screen) {
         this.screen = screen;
         minecraftPlayer.openInventory(screen.getInventory());
@@ -29,6 +35,18 @@ public class Spectator {
         minecraftPlayer.sendMessage(String.format(message, format));
     }
 
+    /**
+     * Plays the given sound for this spectator / player
+     * @param sound The sound to play. Can be created using {@link Sound#sound(Key, Sound.Source, float, float)}
+     */
+    public void playSound(Sound sound) {
+        minecraftPlayer.playSound(sound);
+    }
+
+    /**
+     * Returns the {@link HumanEntity} representing the minecraft instance of this player
+     * @return the {@link HumanEntity} representing the minecraft instance of this player
+     */
     public HumanEntity getMcPlayer() {
         return minecraftPlayer;
     }

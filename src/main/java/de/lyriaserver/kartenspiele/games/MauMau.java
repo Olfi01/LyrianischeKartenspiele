@@ -5,6 +5,7 @@ import de.lyriaserver.kartenspiele.classes.cardgames.Card;
 import de.lyriaserver.kartenspiele.classes.cardgames.Decks;
 import de.lyriaserver.kartenspiele.classes.cardgames.Pile;
 import de.lyriaserver.kartenspiele.classes.cardgames.Stack;
+import de.lyriaserver.kartenspiele.constants.Sounds;
 import de.lyriaserver.kartenspiele.gui.screens.LobbyScreen;
 import de.lyriaserver.kartenspiele.gui.screens.MauMauScreen;
 import de.lyriaserver.kartenspiele.players.CardGamePlayer;
@@ -13,7 +14,8 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.ItemStack;
 import xyz.janboerman.guilib.api.ItemBuilder;
 
-public final class MauMau extends TurnBasedGame<MauMau, CardGamePlayer> implements CardGame, StackGame {
+public final class MauMau extends TurnBasedGame<MauMau, CardGamePlayer>
+        implements CardGame<MauMau, CardGamePlayer>, StackGame<MauMau, CardGamePlayer> {
     private static final String NAME = "Mau-Mau";
     public static final ItemStack ICON =
             new ItemBuilder(Material.PAPER)
@@ -58,7 +60,7 @@ public final class MauMau extends TurnBasedGame<MauMau, CardGamePlayer> implemen
 
     @Override
     public void showScreenToPlayer(CardGamePlayer player) {
-        if (status == Status.Lobby) {
+        if (status == GameStatus.Lobby) {
             player.openScreen(new LobbyScreen<>(this, player));
         }
         else {
@@ -73,7 +75,7 @@ public final class MauMau extends TurnBasedGame<MauMau, CardGamePlayer> implemen
 
     @Override
     public void runGame() {
-        status = Status.Started;
+        status = GameStatus.Started;
         stack.shuffle();
         pile.placeCard(stack.draw());
         for (CardGamePlayer player : players) {
@@ -84,22 +86,25 @@ public final class MauMau extends TurnBasedGame<MauMau, CardGamePlayer> implemen
 
     @Override
     public boolean playerUseCard(CardGamePlayer player, Card card) {
-        if (status != Status.Started) return false;
+        if (status != GameStatus.Started) return false;
         if (currentTurnPlayer != player) return false;
         if (!cardCanBePlayed(card)) return false;
         if (!player.playCard(card, pile)) return false;
         broadcastMessage("%s legt %s.", player.getName(), card.getName());
         if (card.value() == Card.Value.Eight) {
             broadcastMessage("Richtungswechsel!");
+            broadcastSound(Sounds.REVERSE_DIRECTION);
             toggleDirection();
         }
         nextTurn();
         if (card.value() == Card.Value.Seven) {
             broadcastMessage("%s muss zwei Karten ziehen!", currentTurnPlayer.getName());
+            broadcastSound(Sounds.CARD_DRAW);
             currentTurnPlayer.drawCards(stack, 2);
         }
         else if (card.value() == Card.Value.Ace) {
             broadcastMessage("%s muss aussetzen!", currentTurnPlayer.getName());
+            broadcastSound(Sounds.TURN_SKIP);
             nextTurn();
         }
 

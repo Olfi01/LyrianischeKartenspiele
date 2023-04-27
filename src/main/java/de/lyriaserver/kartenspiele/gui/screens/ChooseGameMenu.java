@@ -2,8 +2,8 @@ package de.lyriaserver.kartenspiele.gui.screens;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
 import de.lyriaserver.kartenspiele.classes.BlockPos;
-import de.lyriaserver.kartenspiele.games.Game;
 import de.lyriaserver.kartenspiele.games.GamesRegistry;
+import de.lyriaserver.kartenspiele.games.IGame;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -81,7 +81,7 @@ public class ChooseGameMenu extends PageMenu<LyrianischeKartenspiele> {
     }
 
     public class ChooseGameButton extends ItemButton<MenuHolder<LyrianischeKartenspiele>> {
-        private final Supplier<Game<?, ?>> gameSupplier;
+        private final Supplier<IGame<?, ?>> gameSupplier;
         public ChooseGameButton(GamesRegistry.GameOption gameOption) {
             super(gameOption.icon());
             this.gameSupplier = gameOption.gameSupplier();
@@ -89,10 +89,10 @@ public class ChooseGameMenu extends PageMenu<LyrianischeKartenspiele> {
 
         @Override
         public void onClick(MenuHolder<LyrianischeKartenspiele> holder, InventoryClickEvent event) {
-            Map<BlockPos, Game<?, ?>> games = LyrianischeKartenspiele.INSTANCE.getGames();
+            Map<BlockPos, IGame<?, ?>> games = LyrianischeKartenspiele.INSTANCE.getGames();
             HumanEntity player = event.getWhoClicked();
             if (!games.containsKey(position)) {
-                Game<?, ?> game = gameSupplier.get();
+                IGame<?, ?> game = gameSupplier.get();
                 games.put(position, game);
                 game.playerJoin(player);
             }

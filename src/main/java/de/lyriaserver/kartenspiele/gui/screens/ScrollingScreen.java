@@ -1,6 +1,6 @@
 package de.lyriaserver.kartenspiele.gui.screens;
 
-import de.lyriaserver.kartenspiele.games.Game;
+import de.lyriaserver.kartenspiele.games.IGame;
 import de.lyriaserver.kartenspiele.players.Player;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -14,7 +14,7 @@ import xyz.janboerman.guilib.api.menu.ItemButton;
  * anywhere in the GUI ({@code setButton(YOUR_SLOT, scrollUpButton)}).
  * See an example in {@link MauMauScreen}
  */
-public abstract class ScrollingScreen<G extends Game<G, P>, P extends Player> extends GameScreen<G, P> {
+public abstract class ScrollingScreen<G extends IGame<G, P>, P extends Player> extends GameScreen<G, P> {
     protected int scrollingOffset = 0;
     protected final ScrollButton scrollUpButton;
     protected final ScrollButton scrollDownButton;

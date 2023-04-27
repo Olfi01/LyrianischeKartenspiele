@@ -1,7 +1,8 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
 import de.lyriaserver.kartenspiele.constants.Permissions;
-import de.lyriaserver.kartenspiele.games.Game;
+import de.lyriaserver.kartenspiele.games.GameStatus;
+import de.lyriaserver.kartenspiele.games.IGame;
 import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
@@ -15,9 +16,9 @@ public class CancelGameButton extends ItemButton<GameScreen<?, ?>> {
             new ItemBuilder(Material.LAVA_BUCKET)
                     .name("Spiel abbrechen")
                     .build();
-    private final Game<?, ?> game;
+    private final IGame<?, ?> game;
 
-    public CancelGameButton(Game<?, ?> game) {
+    public CancelGameButton(IGame<?, ?> game) {
         super(icon);
         this.game = game;
     }
@@ -33,7 +34,7 @@ public class CancelGameButton extends ItemButton<GameScreen<?, ?>> {
     }
 
     private boolean canPlayerCancel(HumanEntity player) {
-        if (game.getStatus() == Game.Status.Lobby) return player.hasPermission(Permissions.CANCEL_GAME_LOBBY);
+        if (game.getStatus() == GameStatus.Lobby) return player.hasPermission(Permissions.CANCEL_GAME_LOBBY);
         return player.hasPermission(Permissions.CANCEL_GAME);
     }
 }

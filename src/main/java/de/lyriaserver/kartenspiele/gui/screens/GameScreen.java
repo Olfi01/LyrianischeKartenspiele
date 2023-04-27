@@ -1,12 +1,12 @@
 package de.lyriaserver.kartenspiele.gui.screens;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
-import de.lyriaserver.kartenspiele.games.Game;
+import de.lyriaserver.kartenspiele.games.IGame;
 import de.lyriaserver.kartenspiele.players.Player;
 import org.jetbrains.annotations.Nullable;
 import xyz.janboerman.guilib.api.menu.MenuHolder;
 
-public abstract class GameScreen<G extends Game<G, P>, P extends Player> extends MenuHolder<LyrianischeKartenspiele> {
+public abstract class GameScreen<G extends IGame<G, P>, P extends Player> extends MenuHolder<LyrianischeKartenspiele> {
     protected final G game;
     @Nullable
     protected final P player;

@@ -1,6 +1,6 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
-import de.lyriaserver.kartenspiele.games.Game;
+import de.lyriaserver.kartenspiele.games.GameStatus;
 import de.lyriaserver.kartenspiele.games.TurnBasedGame;
 import de.lyriaserver.kartenspiele.gui.screens.MauMauScreen;
 import de.lyriaserver.kartenspiele.players.Player;
@@ -33,7 +33,7 @@ public class TurnIndicator<G extends TurnBasedGame<G, ? extends Player>> extends
     }
 
     public void update() {
-        if (game.getStatus() == Game.Status.Ended)
+        if (game.getStatus() == GameStatus.Ended)
             setIcon(gameFinished);
         else if (game.getCurrentTurnPlayer() == player)
             setIcon(yourTurn);

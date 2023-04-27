@@ -1,6 +1,7 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
-import de.lyriaserver.kartenspiele.games.Game;
+import de.lyriaserver.kartenspiele.constants.Sounds;
+import de.lyriaserver.kartenspiele.games.GameStatus;
 import de.lyriaserver.kartenspiele.games.StackGame;
 import de.lyriaserver.kartenspiele.games.TurnBasedGame;
 import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
@@ -12,26 +13,26 @@ import org.jetbrains.annotations.Nullable;
 import xyz.janboerman.guilib.api.ItemBuilder;
 import xyz.janboerman.guilib.api.menu.ItemButton;
 
-public class DrawButton<G extends Game<G, ?> & StackGame, S extends GameScreen<?, ?>>
-        extends ItemButton<S> {
+public class DrawCardButton extends ItemButton<GameScreen<?, ?>> {
     private static final ItemStack icon =
             new ItemBuilder(Material.PAPER)
                     .name("Karte ziehen")
                     .addLore("Gegenstand: Verdeckte Karte")
                     .build();
-    private final G game;
+    private final StackGame<?, ?> game;
     private final CardGamePlayer player;
 
-    public DrawButton(G game, @Nullable CardGamePlayer player) {
+    public DrawCardButton(StackGame<?, ?> game, @Nullable CardGamePlayer player) {
         super(icon);
         this.game = game;
         this.player = player;
     }
 
     @Override
-    public void onClick(S holder, InventoryClickEvent event) {
-        if (player == null || game.getStatus() != Game.Status.Started) return;
+    public void onClick(GameScreen<?, ?> holder, InventoryClickEvent event) {
+        if (player == null || game.getStatus() != GameStatus.Started) return;
         player.drawCard(game.getStack());
+        game.broadcastSound(Sounds.CARD_DRAW);
         game.broadcastMessage("%s zieht eine Karte.", player.getName());
         if (game instanceof TurnBasedGame<?, ?> turnBasedGame)
             turnBasedGame.nextTurn();

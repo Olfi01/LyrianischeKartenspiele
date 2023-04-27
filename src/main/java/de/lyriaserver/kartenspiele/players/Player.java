@@ -37,4 +37,15 @@ public class Player extends Spectator {
     public LobbyPlayerButton getLobbyButton() {
         return lobbyButton;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Player player)) return false;
+        return this.getUid().equals(player.getUid());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getUid().hashCode();
+    }
 }

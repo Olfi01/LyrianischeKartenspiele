@@ -1,7 +1,8 @@
 package de.lyriaserver.kartenspiele.gui.screens;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
-import de.lyriaserver.kartenspiele.games.Game;
+import de.lyriaserver.kartenspiele.constants.Sounds;
+import de.lyriaserver.kartenspiele.games.IGame;
 import de.lyriaserver.kartenspiele.gui.buttons.CancelGameButton;
 import de.lyriaserver.kartenspiele.players.Player;
 import org.bukkit.Material;
@@ -17,7 +18,7 @@ import xyz.janboerman.guilib.api.menu.ItemButton;
 
 import java.util.Iterator;
 
-public class LobbyScreen<G extends Game<G, P>, P extends Player> extends GameScreen<G, P> {
+public class LobbyScreen<G extends IGame<G, P>, P extends Player> extends GameScreen<G, P> {
     private final Player player;
     private final StartGameButton<G, P> startGameButton;
     public LobbyScreen(G game, P player) {
@@ -74,7 +75,7 @@ public class LobbyScreen<G extends Game<G, P>, P extends Player> extends GameScr
         }
     }
 
-    public static class StartGameButton<G extends Game<G, P>, P extends Player> extends ItemButton<LobbyScreen<G, P>> {
+    public static class StartGameButton<G extends IGame<G, P>, P extends Player> extends ItemButton<LobbyScreen<G, P>> {
         private static final ItemStack canStartIcon =
                 new ItemBuilder(Material.TIPPED_ARROW)
                         .name("Spiel starten")
@@ -87,9 +88,9 @@ public class LobbyScreen<G extends Game<G, P>, P extends Player> extends GameScr
                         .changeMeta((PotionMeta meta) -> meta.setBasePotionData(new PotionData(PotionType.INSTANT_HEAL)))
                         .changeMeta(meta -> meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS))
                         .build();
-        private final Game<G, P> game;
+        private final IGame<G, P> game;
 
-        public StartGameButton(Game<G, P> game) {
+        public StartGameButton(IGame<G, P> game) {
             super(cantStartIcon);
             this.game = game;
             update();
@@ -105,6 +106,7 @@ public class LobbyScreen<G extends Game<G, P>, P extends Player> extends GameScr
         @Override
         public void onClick(LobbyScreen holder, InventoryClickEvent event) {
             if (game.canStart()) {
+                game.broadcastSound(Sounds.GAME_STARTING);
                 game.startGame();
             }
         }

@@ -14,7 +14,7 @@ public class MauMauScreen extends ScrollingScreen<MauMau, CardGamePlayer> {
     private static final int PAGE_SIZE = 24;
     private final TurnIndicator<MauMau> turnIndicator;
     private final PileView pileButton;
-    private final List<OpponentInfo<MauMauScreen, CardGamePlayer>> opponents = new ArrayList<>();
+    private final List<OpponentInfo<CardGamePlayer>> opponents = new ArrayList<>();
     public MauMauScreen(MauMau game, @Nullable CardGamePlayer player) {
         super(game, 54, player, 1, -1);
 
@@ -23,7 +23,7 @@ public class MauMauScreen extends ScrollingScreen<MauMau, CardGamePlayer> {
             setButton(slot, turnIndicator);
         }
 
-        setButton(12, new DrawButton<>(game, player));
+        setButton(12, new DrawCardButton(game, player));
         pileButton = new PileView(game.getPile());
         setButton(14, pileButton);
 
@@ -35,7 +35,7 @@ public class MauMauScreen extends ScrollingScreen<MauMau, CardGamePlayer> {
                 if (!iterator.hasNext()) break;
                 opponent = iterator.next();
             }
-            OpponentInfo<MauMauScreen, CardGamePlayer> opponentInfo = new OpponentInfo<>(game, opponent);
+            OpponentInfo<CardGamePlayer> opponentInfo = new OpponentInfo<>(game, opponent);
             opponents.add(opponentInfo);
             setButton(slot, opponentInfo);
         }
