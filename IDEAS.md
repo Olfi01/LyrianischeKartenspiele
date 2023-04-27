@@ -16,4 +16,3 @@
 * Fenster schließen -> Spectator entfernen (in test)
 * Karten ziehen nur wenn man dran ist (in test)
 * Spiel um Geld -> alle nicht bereit (in test)
-* 
