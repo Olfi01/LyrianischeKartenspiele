@@ -15,10 +15,4 @@
 * Kurze Beschreibungen für Games
 * Koenig -> König (benötigt Resource Pack Update)
 # Bug Fixes
-* Fenster schließen -> Spectator entfernen (in test)
 * Spiel um Geld -> alle nicht bereit (in test)
-* Lobby on close -> spieler lobby verlassen (in test)
-* Andere Spieler sehen können wer dran ist (in test)
-* Karte ziehen lore schwarz (in test)
-* Decktod (in test)
-* error sound when actions don't work
