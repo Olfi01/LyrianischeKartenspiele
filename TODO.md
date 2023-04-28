@@ -14,7 +14,7 @@
 ## Fluff
 * Kurze Beschreibungen für Games
 * Koenig -> König (benötigt Resource Pack Update)
-## Bug Fixes
+# Bug Fixes
 * Fenster schließen -> Spectator entfernen (in test)
 * Spiel um Geld -> alle nicht bereit (in test)
 * Lobby on close -> spieler lobby verlassen (in test)
