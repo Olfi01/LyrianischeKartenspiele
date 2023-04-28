@@ -2,6 +2,9 @@
 ## Spiele
 * Poker
 * Blackjack
+* Solitaire?
+* Skat
+* Doppelkopf
 ## Mechaniken
 * Um Geld spielen
 * RPName verwenden, wenn aktiviert
