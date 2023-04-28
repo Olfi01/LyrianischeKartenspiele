@@ -4,6 +4,7 @@ import de.lyriaserver.kartenspiele.games.GameStatus;
 import de.lyriaserver.kartenspiele.games.TurnBasedGame;
 import de.lyriaserver.kartenspiele.gui.screens.MauMauScreen;
 import de.lyriaserver.kartenspiele.players.Player;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -35,9 +36,16 @@ public class TurnIndicator<G extends TurnBasedGame<G, ? extends Player>> extends
     public void update() {
         if (game.getStatus() == GameStatus.Ended)
             setIcon(gameFinished);
-        else if (game.getCurrentTurnPlayer() == player)
-            setIcon(yourTurn);
-        else
-            setIcon(notYourTurn);
+        else {
+            Player currentTurnPlayer = game.getCurrentTurnPlayer();
+            if (currentTurnPlayer == player) {
+                setIcon(yourTurn);
+            }
+            else {
+                notYourTurn.editMeta(meta -> meta.displayName(
+                        Component.text(String.format("%s ist dran!", currentTurnPlayer.getName()))));
+                setIcon(notYourTurn);
+            }
+        }
     }
 }

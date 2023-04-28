@@ -24,7 +24,7 @@ public class UseCardButton extends ItemButton<GameScreen<?, ?>> {
     @Override
     public void onClick(GameScreen<?, ?> holder, InventoryClickEvent event) {
         if (!game.playerUseCard(player, card)) {
-            player.playSound(Sounds.CARD_CANT_BE_PLAYED);
+            player.playSound(Sounds.GENERIC_ERROR);
         }
         else {
             game.broadcastSound(Sounds.CARD_PLAYED);

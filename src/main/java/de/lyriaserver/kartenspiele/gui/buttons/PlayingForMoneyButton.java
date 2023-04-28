@@ -1,6 +1,7 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
+import de.lyriaserver.kartenspiele.constants.Sounds;
 import de.lyriaserver.kartenspiele.games.MoneyGame;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -27,6 +28,7 @@ public class PlayingForMoneyButton<MH extends MenuHolder<?>> extends ItemButton<
     @Override
     public void onClick(MH holder, InventoryClickEvent event) {
         if (!game.isPlayingForMoney() && LyrianischeKartenspiele.getEconomyHelper().isEmpty()) {
+            event.getWhoClicked().playSound(Sounds.GENERIC_ERROR);
             return;
         }
         game.setPlayingForMoney(!game.isPlayingForMoney());

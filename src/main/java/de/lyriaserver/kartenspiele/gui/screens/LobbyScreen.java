@@ -41,6 +41,8 @@ public class LobbyScreen<G extends IGame<G, P>, P extends Player> extends GameSc
 
         setButton(18, new CancelGameButton(game));
         setButton(26, startGameButton);
+
+        update();
     }
 
     @Override
@@ -49,7 +51,7 @@ public class LobbyScreen<G extends IGame<G, P>, P extends Player> extends GameSc
         for (int row = 1; row < 3; row++) {
             for (int col = 2; col < 7; col++) {
                 if (!iterator.hasNext()) unsetButton(row * 9 + col);
-                setButton(row * 9 + col, iterator.next().getLobbyButton());
+                else setButton(row * 9 + col, iterator.next().getLobbyButton());
             }
         }
         readyButton.update();
@@ -66,9 +68,11 @@ public class LobbyScreen<G extends IGame<G, P>, P extends Player> extends GameSc
                         .name("Nicht bereit")
                         .build();
 
-        private boolean ready = false;
+        private boolean ready;
         public ReadyButton() {
             super(notReadyIcon);
+            this.ready = player.isReady();
+            update();
         }
 
         @Override
@@ -122,6 +126,9 @@ public class LobbyScreen<G extends IGame<G, P>, P extends Player> extends GameSc
             if (game.canStart()) {
                 game.broadcastSound(Sounds.GAME_STARTING);
                 game.startGame();
+            }
+            else {
+                event.getWhoClicked().playSound(Sounds.GENERIC_ERROR);
             }
         }
     }
