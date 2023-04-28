@@ -181,6 +181,14 @@ public final class Poker extends TurnBasedGame<Poker, PokerPlayer> implements Mo
         return Optional.ofNullable(center[index]);
     }
 
+    public int getMaxBet() {
+        return pot.getMaxBet();
+    }
+
+    public int getCurrentPot() {
+        return pot.getBalance();
+    }
+
     private boolean canContinue() {
         return canStart();
     }

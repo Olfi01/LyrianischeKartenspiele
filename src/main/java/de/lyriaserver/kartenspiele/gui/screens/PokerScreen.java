@@ -1,9 +1,7 @@
 package de.lyriaserver.kartenspiele.gui.screens;
 
 import de.lyriaserver.kartenspiele.games.Poker;
-import de.lyriaserver.kartenspiele.gui.buttons.CancelGameButton;
-import de.lyriaserver.kartenspiele.gui.buttons.CardView;
-import de.lyriaserver.kartenspiele.gui.buttons.IntView;
+import de.lyriaserver.kartenspiele.gui.buttons.*;
 import de.lyriaserver.kartenspiele.players.PokerPlayer;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -11,6 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import xyz.janboerman.guilib.api.ItemBuilder;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +18,17 @@ public class PokerScreen extends GameScreen<Poker, PokerPlayer> {
             new ItemBuilder(Material.GOLD_NUGGET)
                     .name("Eigene Chips:")
                     .build();
+    private static final ItemStack topBetIcon =
+            new ItemBuilder(Material.GOLD_NUGGET)
+                    .name("Momentaner Einsatz:")
+                    .build();
+    private static final ItemStack currentPotIcon =
+            new ItemBuilder(Material.GOLD_INGOT)
+                    .name("Geld im Pot:")
+                    .build();
     private final CardView[] cards = new CardView[7];
     private final List<IntView> intViews = new ArrayList<>();
+    private final TurnIndicator<Poker> turnIndicator;
     public PokerScreen(Poker game, @Nullable PokerPlayer player) {
         super(game, 54, player);
 
@@ -41,7 +49,6 @@ public class PokerScreen extends GameScreen<Poker, PokerPlayer> {
         // TODO: fold, less, amount, more, raise/call, buy-out
 
         // TODO: card combination value?
-
         if (player != null) {
             for (int i = 0; i < 2; i++) {
                 final int finalI = i;
@@ -50,10 +57,23 @@ public class PokerScreen extends GameScreen<Poker, PokerPlayer> {
                 setButton(2 * i + 30, button);
             }
         }
+        IntView topBetButton = new IntView(topBetIcon, game::getMaxBet);
+        setButton(34, topBetButton);
+        intViews.add(topBetButton);
+        IntView currentPotButton = new IntView(currentPotIcon, game::getCurrentPot);
+        setButton(35, currentPotButton);
+        intViews.add(currentPotButton);
 
-        // TODO: setButton(34, topBetButton);
+        turnIndicator = new TurnIndicator<>(game, player);
+        for (int slot = 36; slot < 45; slot++) {
+            setButton(slot, turnIndicator);
+        }
 
-        // TODO: fill
+        Iterator<PokerPlayer> iterator = game.getPlayers().iterator();
+        for (int slot = 45; slot < 54; slot++) {
+            if (!iterator.hasNext()) break;
+            setButton(slot, new OpponentInfo<>(game, iterator.next()));
+        }
     }
 
     @Override
@@ -64,8 +84,13 @@ public class PokerScreen extends GameScreen<Poker, PokerPlayer> {
         for (IntView view : intViews) {
             view.update();
         }
-
-        // TODO: fill
+        // TODO: other buttons
+        turnIndicator.update();
+        Iterator<PokerPlayer> iterator = game.getPlayers().iterator();
+        for (int slot = 45; slot < 54; slot++) {
+            if (!iterator.hasNext()) unsetButton(slot);
+            else setButton(slot, new OpponentInfo<>(game, iterator.next()));
+        }
     }
 
     public void setSpectator() {
