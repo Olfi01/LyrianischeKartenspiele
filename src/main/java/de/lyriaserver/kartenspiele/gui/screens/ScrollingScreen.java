@@ -58,10 +58,12 @@ public abstract class ScrollingScreen<G extends IGame<G, P>, P extends Player> e
         private static final ItemStack scrollUpIcon =
                 new ItemBuilder(Material.LADDER)
                         .name("Hoch")
+                        .lore("§0(CIT) Pfeil hoch")
                         .build();
         private static final ItemStack scrollDownIcon =
                 new ItemBuilder(Material.POINTED_DRIPSTONE)
                         .name("Runter")
+                        .lore("§0(CIT) Pfeil runter")
                         .build();
         public ScrollButton(int offset) {
             super(offset < 0 ? scrollUpIcon : scrollDownIcon);
