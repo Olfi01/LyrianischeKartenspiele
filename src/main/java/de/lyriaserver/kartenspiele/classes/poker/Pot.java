@@ -121,4 +121,9 @@ public class Pot {
     private int sum() {
         return bets.values().stream().mapToInt(Integer::intValue).sum();
     }
+
+    public OptionalInt getBet(MoneyPlayer player) {
+        if (bets.containsKey(player)) return OptionalInt.of(bets.get(player));
+        else return OptionalInt.empty();
+    }
 }

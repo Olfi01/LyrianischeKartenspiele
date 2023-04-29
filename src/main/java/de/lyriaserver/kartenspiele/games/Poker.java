@@ -153,6 +153,15 @@ public final class Poker extends TurnBasedGame<Poker, PokerPlayer> implements Mo
         // TODO: nicht vergessen, vor Start einer neuen Runde den neuen small blind setzen
     }
 
+    public void playerFold(PokerPlayer player) {
+        // TODO: fill
+    }
+
+    public boolean placeBet(PokerPlayer player, int amount) {
+        if (currentTurnPlayer != player || player.getChips() < amount) return false;
+        // TODO: fill
+    }
+
     @Override
     public void finishGame() {
         for (PokerPlayer player : players) {
@@ -187,6 +196,14 @@ public final class Poker extends TurnBasedGame<Poker, PokerPlayer> implements Mo
 
     public int getCurrentPot() {
         return pot.getBalance();
+    }
+
+    public int getPlacedBet(PokerPlayer player) {
+        return pot.getBet(player).orElse(0);
+    }
+
+    public int playerCallAmount(PokerPlayer player) {
+        return pot.playerCallAmount(player);
     }
 
     private boolean canContinue() {

@@ -10,7 +10,7 @@ import xyz.janboerman.guilib.api.menu.MenuHolder;
 public abstract class GameScreen<G extends IGame<G, P>, P extends Player> extends MenuHolder<LyrianischeKartenspiele> {
     protected final G game;
     @Nullable
-    protected final P player;
+    protected P player;
 
     /**
      * Creates a new game screen. Sets the basic values usable by the screen.
