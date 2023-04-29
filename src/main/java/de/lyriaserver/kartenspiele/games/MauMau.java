@@ -76,6 +76,7 @@ public final class MauMau extends TurnBasedGame<MauMau, CardGamePlayer>
     @Override
     public void runGame() {
         status = GameStatus.Started;
+        if (players.size() > 5) stack.putCards(Decks.FULL_DECK);
         stack.shuffle();
         pile.placeCard(stack.draw());
         for (CardGamePlayer player : players) {

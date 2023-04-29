@@ -41,4 +41,12 @@ public class Stack extends CardStack {
     public boolean isEmpty() {
         return cards.isEmpty();
     }
+
+    /**
+     * Puts all cards in the given list into this stack at the bottom of the stack
+     * @param cards The cards to add into this stack
+     */
+    public void putCards(List<Card> cards) {
+        this.cards.addAll(cards);
+    }
 }
