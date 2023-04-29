@@ -7,6 +7,7 @@ import de.lyriaserver.kartenspiele.gui.screens.ChooseGameMenu;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -31,5 +32,7 @@ public class PlayerInteractListener implements Listener {
         else {
             player.openInventory(new ChooseGameMenu(position).getInventory());
         }
+        event.setUseInteractedBlock(Event.Result.ALLOW);
+        event.setUseItemInHand(Event.Result.DENY);
     }
 }

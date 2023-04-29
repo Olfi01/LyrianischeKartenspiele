@@ -12,6 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import xyz.janboerman.guilib.api.ItemBuilder;
 import xyz.janboerman.guilib.api.menu.ItemButton;
 
+import java.util.List;
+
 public class CancelGameButton extends ItemButton<GameScreen<?, ?>> {
     private static final ItemStack icon =
             new ItemBuilder(Material.LAVA_BUCKET)
@@ -28,7 +30,7 @@ public class CancelGameButton extends ItemButton<GameScreen<?, ?>> {
     public void onClick(GameScreen<?, ?> holder, InventoryClickEvent event) {
         if (canPlayerCancel(event.getWhoClicked())) {
             game.broadcastMessage("Das Spiel wurde von %s abgebrochen.", event.getWhoClicked().getName());
-            game.getPlayers().forEach(player -> player.getMcPlayer().closeInventory());
+            List.copyOf(game.getPlayers()).forEach(player -> player.getMcPlayer().closeInventory());
             game.getSpectators().forEach(spectator -> spectator.getMcPlayer().closeInventory());
             game.finishGame();
         }

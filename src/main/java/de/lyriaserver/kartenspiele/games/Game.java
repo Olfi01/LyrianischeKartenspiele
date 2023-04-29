@@ -121,7 +121,10 @@ public abstract class Game<G extends Game<G, P>, P extends Player> implements IG
 
     @Override
     public void playerLeftScreen(P player) {
-        if (status == GameStatus.Lobby) players.remove(player);
+        if (status == GameStatus.Lobby) {
+            players.remove(player);
+            updatePlayerScreens();
+        }
         spectators.remove(player);
     }
 
