@@ -1,5 +1,7 @@
 package de.lyriaserver.kartenspiele.classes.cardgames;
 
+import java.util.Comparator;
+
 public record Card(Color color, Value value) {
     public String getItemLore() {
         return String.format("§0Gegenstand: Karte %s %s", color.getName(), value.getName());
@@ -53,6 +55,13 @@ public record Card(Color color, Value value) {
 
         public String getName() {
             return name;
+        }
+    }
+
+    public static class ValueComparator implements Comparator<Card> {
+        @Override
+        public int compare(Card o1, Card o2) {
+            return o1.value.value - o2.value.value;
         }
     }
 }

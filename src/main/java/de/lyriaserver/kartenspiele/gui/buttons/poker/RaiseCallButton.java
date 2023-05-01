@@ -1,5 +1,6 @@
 package de.lyriaserver.kartenspiele.gui.buttons.poker;
 
+import de.lyriaserver.kartenspiele.classes.Updatable;
 import de.lyriaserver.kartenspiele.constants.Sounds;
 import de.lyriaserver.kartenspiele.games.Poker;
 import de.lyriaserver.kartenspiele.gui.buttons.AmountButton;
@@ -11,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import xyz.janboerman.guilib.api.ItemBuilder;
 import xyz.janboerman.guilib.api.menu.ItemButton;
 
-public class RaiseCallButton extends ItemButton<PokerScreen> {
+public class RaiseCallButton extends ItemButton<PokerScreen> implements Updatable {
     private static final ItemStack callIcon =
             new ItemBuilder(Material.GREEN_WOOL)
                     .name("Mitgehen")
@@ -19,6 +20,10 @@ public class RaiseCallButton extends ItemButton<PokerScreen> {
     private static final ItemStack raiseIcon =
             new ItemBuilder(Material.YELLOW_WOOL)
                     .name("Erhöhen")
+                    .build();
+    private static final ItemStack allInIcon =
+            new ItemBuilder(Material.RED_WOOL)
+                    .name("Alles setzen")
                     .build();
     private final Poker game;
     private final PokerPlayer player;
@@ -39,7 +44,8 @@ public class RaiseCallButton extends ItemButton<PokerScreen> {
     }
 
     public void update() {
-        if (amountButton.getAmount() == game.playerCallAmount(player)) setIcon(callIcon);
+        if (amountButton.getAmount() == player.getChips()) setIcon(allInIcon);
+        else if (amountButton.getAmount() == game.playerCallAmount(player)) setIcon(callIcon);
         else setIcon(raiseIcon);
     }
 }

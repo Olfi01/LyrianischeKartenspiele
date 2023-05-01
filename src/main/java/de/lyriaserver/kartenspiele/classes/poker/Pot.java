@@ -15,10 +15,12 @@ public class Pot {
      * Deposits the given amount of chips into the pot.
      * @param amount The amount of chips to bet
      * @return false if the player hasn't got enough money
-     * @throws IllegalArgumentException if the amount isn't enough to match the current highest bet TODO: implement
+     * @throws IllegalArgumentException if the amount isn't enough to match the current highest bet
      */
     public boolean deposit(MoneyPlayer player, int amount) {
         if (player.getChips() < amount) return false;
+        if (amount < playerCallAmount(player))
+            throw new IllegalArgumentException("Not enough chips to match the highest bet!");
         putBet(player, amount);
         player.subtractChips(amount);
         return true;

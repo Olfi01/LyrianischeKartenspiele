@@ -1,5 +1,6 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
+import de.lyriaserver.kartenspiele.classes.Updatable;
 import de.lyriaserver.kartenspiele.games.IGame;
 import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
 import de.lyriaserver.kartenspiele.players.Player;
@@ -14,7 +15,7 @@ import xyz.janboerman.guilib.api.menu.ItemButton;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class OpponentInfo<P extends Player> extends ItemButton<GameScreen<?, ?>> {
+public class OpponentInfo<P extends Player> extends ItemButton<GameScreen<?, ?>> implements Updatable {
     private final ItemStack icon;
     private final P player;
     private final IGame<?, P> game;

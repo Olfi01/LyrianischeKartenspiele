@@ -1,5 +1,6 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
+import de.lyriaserver.kartenspiele.classes.Updatable;
 import de.lyriaserver.kartenspiele.games.GameStatus;
 import de.lyriaserver.kartenspiele.games.TurnBasedGame;
 import de.lyriaserver.kartenspiele.gui.screens.MauMauScreen;
@@ -11,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import xyz.janboerman.guilib.api.ItemBuilder;
 import xyz.janboerman.guilib.api.menu.ItemButton;
 
-public class TurnIndicator<G extends TurnBasedGame<G, ? extends Player>> extends ItemButton<MauMauScreen> {
+public class TurnIndicator<G extends TurnBasedGame<G, ? extends Player>> extends ItemButton<MauMauScreen> implements Updatable {
     private static final ItemStack yourTurn =
             new ItemBuilder(Material.GREEN_STAINED_GLASS_PANE)
                     .name("Du bist dran!")

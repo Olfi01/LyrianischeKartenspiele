@@ -1,5 +1,6 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
+import de.lyriaserver.kartenspiele.classes.Updatable;
 import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -9,9 +10,11 @@ import org.bukkit.inventory.ItemStack;
 import xyz.janboerman.guilib.api.ItemBuilder;
 import xyz.janboerman.guilib.api.menu.ItemButton;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public class AmountButton extends ItemButton<GameScreen<?, ?>> {
+public class AmountButton extends ItemButton<GameScreen<?, ?>> implements Updatable {
     private static final List<String> lore = List.of(
             "Linksklick: 1",
             "Rechtsklick: 10",
@@ -20,6 +23,7 @@ public class AmountButton extends ItemButton<GameScreen<?, ?>> {
             "Q: 10000"
     );
     private final ItemStack icon;
+    private final Set<Updatable> updateListeners = new HashSet<>();
     private int amount;
     private int minAmount;
     private int maxAmount;
@@ -53,6 +57,7 @@ public class AmountButton extends ItemButton<GameScreen<?, ?>> {
     public void update() {
         icon.editMeta(meta -> meta.displayName(Component.text(amount)));
         setIcon(icon);
+        updateListeners.forEach(Updatable::update);
     }
 
     public int getAmount() {
@@ -69,16 +74,30 @@ public class AmountButton extends ItemButton<GameScreen<?, ?>> {
         };
     }
 
+    /**
+     * Sets the minimum amount for this button. If minAmount is greater than maxAmount, minAmount will be set to maxAmount.
+     * @param minAmount The minimum amount to set for this button.
+     */
     public void setMinAmount(int minAmount) {
+        if (minAmount > maxAmount) minAmount = maxAmount;
         this.minAmount = minAmount;
         if (amount < minAmount) amount = minAmount;
         update();
     }
 
+    /**
+     * Sets the maximum amount for this button. If maxAmount is less than minAmount, minAmount will be set to maxAmount.
+     * @param maxAmount The maximum amount to set for this button.
+     */
     public void setMaxAmount(int maxAmount) {
         this.maxAmount = maxAmount;
         if (amount > maxAmount) amount = maxAmount;
+        if (maxAmount < minAmount) this.minAmount = maxAmount;
         update();
+    }
+
+    public void propagateUpdate(Updatable updatable) {
+        updateListeners.add(updatable);
     }
 
     public static class Add extends ItemButton<GameScreen<?, ?>> {
@@ -102,7 +121,7 @@ public class AmountButton extends ItemButton<GameScreen<?, ?>> {
 
     public static class Subtract extends ItemButton<GameScreen<?, ?>> {
         private static final ItemStack icon =
-                new ItemBuilder(Material.WATER_BUCKET)
+                new ItemBuilder(Material.BUCKET)
                         .name("Weniger")
                         .lore(lore)
                         .build();

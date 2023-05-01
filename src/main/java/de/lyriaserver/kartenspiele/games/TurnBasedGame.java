@@ -10,6 +10,7 @@ public abstract class TurnBasedGame<G extends TurnBasedGame<G, P>, P extends Pla
     @Override
     public void startGame() {
         currentTurnPlayer = players.get(LyrianischeKartenspiele.RANDOM.nextInt(players.size()));
+        status = GameStatus.Started;
         runGame();
     }
 

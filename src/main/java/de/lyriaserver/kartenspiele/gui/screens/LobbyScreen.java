@@ -68,27 +68,24 @@ public class LobbyScreen<G extends IGame<G, P>, P extends Player> extends GameSc
                         .name("Nicht bereit")
                         .build();
 
-        private boolean ready;
         public ReadyButton() {
             super(notReadyIcon);
-            this.ready = player.isReady();
             update();
         }
 
         @Override
         public void onClick(LobbyScreen holder, InventoryClickEvent event) {
-            ready = !ready;
-            player.setReady(ready);
+            player.setReady(!player.isReady());
             startGameButton.update();
             this.update();
         }
 
         public boolean isReady() {
-            return ready;
+            return player.isReady();
         }
 
         public void update() {
-            if (ready) setIcon(readyIcon);
+            if (player.isReady()) setIcon(readyIcon);
             else setIcon(notReadyIcon);
         }
     }

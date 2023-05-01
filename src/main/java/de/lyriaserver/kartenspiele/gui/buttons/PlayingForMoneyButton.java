@@ -1,16 +1,17 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
 import de.lyriaserver.kartenspiele.LyrianischeKartenspiele;
+import de.lyriaserver.kartenspiele.classes.Updatable;
 import de.lyriaserver.kartenspiele.constants.Sounds;
 import de.lyriaserver.kartenspiele.games.MoneyGame;
+import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import xyz.janboerman.guilib.api.ItemBuilder;
 import xyz.janboerman.guilib.api.menu.ItemButton;
-import xyz.janboerman.guilib.api.menu.MenuHolder;
 
-public class PlayingForMoneyButton<MH extends MenuHolder<?>> extends ItemButton<MH> {
+public class PlayingForMoneyButton extends ItemButton<GameScreen<?,?>> implements Updatable {
     private static final ItemStack playingForMoneyIcon =
             new ItemBuilder(Material.GOLD_NUGGET)
                     .name("Spiel um Geld")
@@ -25,14 +26,14 @@ public class PlayingForMoneyButton<MH extends MenuHolder<?>> extends ItemButton<
         update();
     }
 
-    @Override
-    public void onClick(MH holder, InventoryClickEvent event) {
+    public void onClick(GameScreen<?,?> holder, InventoryClickEvent event) {
         if (!game.isPlayingForMoney() && LyrianischeKartenspiele.getEconomyHelper().isEmpty()) {
             event.getWhoClicked().playSound(Sounds.GENERIC_ERROR);
             return;
         }
         game.setPlayingForMoney(!game.isPlayingForMoney());
         game.setAllPlayersUnready();
+        game.updatePlayerScreens();
         update();
     }
 

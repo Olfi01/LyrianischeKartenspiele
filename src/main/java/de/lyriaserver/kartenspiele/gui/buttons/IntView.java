@@ -1,5 +1,6 @@
 package de.lyriaserver.kartenspiele.gui.buttons;
 
+import de.lyriaserver.kartenspiele.classes.Updatable;
 import de.lyriaserver.kartenspiele.gui.screens.GameScreen;
 import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.ItemStack;
@@ -8,7 +9,7 @@ import xyz.janboerman.guilib.api.menu.ItemButton;
 import java.util.Collections;
 import java.util.function.IntSupplier;
 
-public class IntView extends ItemButton<GameScreen<?, ?>> {
+public class IntView extends ItemButton<GameScreen<?, ?>> implements Updatable {
     private final ItemStack icon;
     private final IntSupplier supplier;
 
