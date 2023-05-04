@@ -11,7 +11,7 @@ public class PokerCombination implements Comparable<PokerCombination> {
 
     private final Value value;
 
-    private PokerCombination(Value value, Card[] cards) {
+    PokerCombination(Value value, Card[] cards) {
         this.value = value;
         this.cards = cards;
     }
@@ -21,12 +21,8 @@ public class PokerCombination implements Comparable<PokerCombination> {
         int valueDiff = value.value - combination.getValue().value;
         if (valueDiff != 0) return valueDiff;
         Card.ValueComparator cardValueComparator = new Card.ValueComparator();
-        Iterator<Card> otherSortedCards = Arrays.stream(combination.cards)
-                .sorted(Collections.reverseOrder(cardValueComparator)).iterator();
-        Iterator<Card> thisSortedCards = Arrays.stream(cards)
-                .sorted(Collections.reverseOrder(cardValueComparator)).iterator();
-        while (thisSortedCards.hasNext() && otherSortedCards.hasNext()) {
-            int cardDiff = cardValueComparator.compare(thisSortedCards.next(), otherSortedCards.next());
+        for (int i = 0; i < Math.min(cards.length, combination.cards.length); i++) {
+            int cardDiff = cardValueComparator.compare(cards[i], combination.cards[i]);
             if (cardDiff != 0) return cardDiff;
         }
         return 0;
@@ -60,7 +56,8 @@ public class PokerCombination implements Comparable<PokerCombination> {
             }
 
             if (valueCards.size() == 3) {
-                Optional<List<Card>> pair = values.values().stream().filter(list -> list.size() >= 2)
+                Optional<List<Card>> pair = values.values().stream().filter(list -> list.size() >= 2
+                                && list.get(0).value() != valueCards.get(0).value())
                         .max(Comparator.comparing(list -> list.get(0), cardValueComparator));
                 if (pair.isPresent()) {
                     Card[] cardArray = valueCards.toArray(new Card[5]);
@@ -80,8 +77,8 @@ public class PokerCombination implements Comparable<PokerCombination> {
             return new PokerCombination(Value.Flush, cardsArray);
         }
 
-        Optional<PokerCombination> straight = findStraight(values);
-        if (straight.isPresent()) return straight.get();
+        Optional<Card[]> straight = findStraight(values);
+        if (straight.isPresent()) return new PokerCombination(Value.Straight, straight.get());
 
         for (List<Card> valueCards : values.values().stream()
                 .filter(list -> list.size() <= 3 && list.size() > 0)
@@ -130,11 +127,12 @@ public class PokerCombination implements Comparable<PokerCombination> {
     private static Optional<PokerCombination> findStraightFlush(List<Card> colorCards) {
         if (colorCards.size() < 5 || colorCards.stream().anyMatch(card -> colorCards.get(0).color() != card.color()))
             return Optional.empty();
-        return findStraight(colorCards.stream().collect(Collectors.groupingBy(Card::value)));
+        Optional<Card[]> cardsArray = findStraight(colorCards.stream().collect(Collectors.groupingBy(Card::value)));
+        return cardsArray.map(array -> new PokerCombination(Value.StraightFlush, array));
     }
 
     @NotNull
-    private static Optional<PokerCombination> findStraight(Map<Card.Value, List<Card>> values) {
+    private static Optional<Card[]> findStraight(Map<Card.Value, List<Card>> values) {
         int i = 0;
         Iterator<List<Card>> iterator =
                 values.values().stream().filter(list -> list.size() > 0)
@@ -162,7 +160,7 @@ public class PokerCombination implements Comparable<PokerCombination> {
                     .filter(list -> list.size() > 0 && list.get(0).value().getValue() == one.value().getValue() - 4)
                     .findFirst().map(list -> list.get(0));
             if (five.isEmpty()) continue;
-            return Optional.of(new PokerCombination(Value.Straight, new Card[]{one, two.get(), three.get(), four.get(), five.get()}));
+            return Optional.of(new Card[]{one, two.get(), three.get(), four.get(), five.get()});
         }
         return Optional.empty();
     }
