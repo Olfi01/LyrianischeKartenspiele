@@ -98,13 +98,13 @@ public class LobbyScreen<G extends IGame<G, P>, P extends Player> extends GameSc
                 new ItemBuilder(Material.TIPPED_ARROW)
                         .name("Spiel starten")
                         .changeMeta((PotionMeta meta) -> meta.setBasePotionData(new PotionData(PotionType.JUMP)))
-                        .changeMeta(meta -> meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS))
+                        .changeMeta(meta -> meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS))
                         .build();
         private static final ItemStack cantStartIcon =
                 new ItemBuilder(Material.TIPPED_ARROW)
                         .name("Nicht alle Spieler sind bereit!")
                         .changeMeta((PotionMeta meta) -> meta.setBasePotionData(new PotionData(PotionType.INSTANT_HEAL)))
-                        .changeMeta(meta -> meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS))
+                        .changeMeta(meta -> meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS))
                         .build();
         private final IGame<G, P> game;
 
