@@ -1,7 +1,7 @@
 name: LyrianischeKartenspiele
 version: '${version}'
 main: de.lyriaserver.kartenspiele.LyrianischeKartenspiele
-api-version: 1.19
+api-version: 1.20
 depend: [ GuiLib ]
 authors: [ Olfi01 ]
 description: Fügt Kartenspiele in Minecraft hinzu
