@@ -27,6 +27,6 @@
 * Raise Call Icon (in test)
 * Amount button (in test)
 * Zweimal erhöhen verbieten (in test)
-* folded player still gets their turn
-* on server shutdown, pay money back to players
+* folded player still gets their turn (in test)
+* on server shutdown, pay money back to players (in test)
 * enable player rejoin?

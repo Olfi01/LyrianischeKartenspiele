@@ -1,10 +1,7 @@
 package de.lyriaserver.kartenspiele;
 
 import de.lyriaserver.kartenspiele.classes.BlockPos;
-import de.lyriaserver.kartenspiele.games.GamesRegistry;
-import de.lyriaserver.kartenspiele.games.IGame;
-import de.lyriaserver.kartenspiele.games.MauMau;
-import de.lyriaserver.kartenspiele.games.Poker;
+import de.lyriaserver.kartenspiele.games.*;
 import de.lyriaserver.kartenspiele.listeners.PlayerInteractListener;
 import de.lyriaserver.kartenspiele.util.EconomyHelper;
 import net.milkbowl.vault.economy.Economy;
@@ -33,6 +30,15 @@ public final class LyrianischeKartenspiele extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
 
         registerGames();
+    }
+
+    @Override
+    public void onDisable() {
+        games.forEach((pos, game) -> {
+            if (game instanceof MoneyGame<?,?> moneyGame && moneyGame.isPlayingForMoney()) {
+                moneyGame.onGameAbort();
+            }
+        });
     }
 
     private void registerGames() {

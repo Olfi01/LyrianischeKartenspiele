@@ -216,9 +216,11 @@ public final class Poker extends TurnBasedGame<Poker, PokerPlayer> implements Mo
             player.setHasChecked(true);
             broadcastMessage("%s erhöht um %d.", player.getName(), amount - playerCallAmount);
         }
-        nextTurn();
-        updatePlayerScreens();
-        checkBettingRoundEnd();
+        do {
+            nextTurn();
+            updatePlayerScreens();
+            checkBettingRoundEnd();
+        } while (currentTurnPlayer.hasFolded());
         return true;
     }
 
@@ -351,6 +353,11 @@ public final class Poker extends TurnBasedGame<Poker, PokerPlayer> implements Mo
     @Override
     public void setPlayingForMoney(boolean playingForMoney) {
         this.playingForMoney = playingForMoney;
+    }
+
+    @Override
+    public void onGameAbort() {
+        finishGame();
     }
 
     /**
